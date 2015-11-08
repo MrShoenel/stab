@@ -3,7 +3,7 @@
 /// <reference path="../typings/angular-ui-router/angular-ui-router.d.ts" />
 /// <reference path="../typings/requirejs/require.d.ts" />
 /// <reference path="./app.common.ts" />
-/// <reference path="./app/article/article.service.ts" />
+/// <reference path="./app/service/content.service.ts" />
 
 
 module Blog {
@@ -71,13 +71,26 @@ module Blog {
 						resolve: {
 							navigation: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.navigation',
+								serie: true,
 								files: [
 									'./script/app/navigation/navigation.directive.js',
+									'./script/app/articleList/articleList.controller.js',
 									'./script/app/articleList/articleList.directive.js',
 									'./script/app/header/header.directive.js',
 									'./script/app/footer/footer.directive.js'
 								]
-							})
+							}),
+							services: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => {
+								return $ocLazyLoad.load({
+									name: 'blogapp.service',
+									files: [
+										'./script/app/service/content.service.js'
+									]
+								}).then(() => {
+									// This one will make the service initialize itself.
+									return $injector.get<Blog.Service.ContentService>('ContentService').initializeMetaContent();
+								});
+							}]
 						}
 					});
 					
@@ -87,37 +100,41 @@ module Blog {
 						template: '<div ui-view></div>',
 						params: {
 							articleUrlName: {
-								value: null,
-								squash: false // must be present
+								value: undefined, // there is no default
+								squash: false
 							}
 						},
 						resolve: {
-							articleModule: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => {
-								return $ocLazyLoad.load({
-									name: 'blogapp.article',
-									files: [
+							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.article',
+								files: [
 										'./script/app/article/article.module.js',
-										'./script/app/article/article.service.js'
-									]
-								}).then(() => {
-									// This one will make the service initialize itself.
-									return $injector.get<Blog.Article.ArticleService>('ArticleService').initializeMetaContent();
-								});
-							}]
+								]
+							})
 						}
 					});
 					
-					$stateProvider.state('page', {
+					$stateProvider.state('list', {
 						parent: 'main',
-						url: '/page/{pageIdx:number}',
+						url: 'list/{listType:string}/{pageIdx:int}',
+						template: '<article-list></article-list>',
 						params: {
+							listType: {
+								value: 'all', // there is no default
+								squash: true
+							},
 							pageIdx: {
 								value: 0,
 								squash: true
 							}
 						},
-						templateProvider: ($templateFactory: Common.$TemplateFactory) => {
-							return $templateFactory.fromUrl('./script/app/checklistOverview/checklistOverview.template.html');
+						resolve: {
+							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.list',
+								files: [
+										'./script/app/list/list.module.js',
+								]
+							})
 						}
 					});
 				};

@@ -43,6 +43,70 @@ module Common {
 		fromUrl(url: string): angular.IPromise<string>;
 	}
 	
+	export interface Meta extends Common.IKVStore<any> {
+		author?: string;
+		copyright?: string;
+		description?: string;
+		keywords?: string;
+		title?: string;
+	}
+	
+	export interface MetaArticle {
+		path: string;
+		lastMod: string;
+		urlName: string;
+
+		meta: Meta;
+	}
+	
+	export class Page<T> {
+		
+		next: Page<T>;
+		prev: Page<T>;
+		
+		constructor(public items: T[]) {
+			this.next = null;
+			this.prev = null;
+		}
+		
+		public hasPrev(): boolean {
+			return this.prev !== null;
+		}
+		
+		public hasNext(): boolean {
+			return this.next !== null;
+		}
+		
+		/**
+		 * Takes a number of items and partitions them into pages by the
+		 * given chunk-size. All pages are linked together and the first
+		 * page is returned.
+		 */
+		public static partitionAndGetFirstPage<T1>(allItems: T1[], partSize: number = 5): Page<T1> {
+			
+			if (allItems.length === 0) {
+				throw new Error('Nothing to partition!');
+			}
+			
+			var numChunks = Math.ceil(allItems.length / partSize);
+			var pages: Page<T1>[] = [];
+			
+			for (let i = 0; i < numChunks; i++) {
+				pages.push(new Page<T1>(allItems.splice(0, partSize)));
+			}
+			for (let i = 0; i < numChunks; i++) {
+				if (i > 0) {
+					pages[i].prev = pages[i - 1];
+				}
+				if (i < (numChunks - 1)) {
+					pages[i].next = pages[i + 1];
+				}
+			}
+			
+			return pages[0];
+		}
+	}
+	
 	export interface IKVStore<T> {
 		[key:string]: T;
 	}

@@ -15,7 +15,9 @@ module Blog {
 				'ui.router',
 				'oc.lazyLoad',
 				'ui.bootstrap'
-			]).constant('DEBUG', new Common.Constants()
+			]).constant('CONFIG', new Common.Constants()
+				.add('ITEMS_PER_PAGE', 1)
+			).constant('DEBUG', new Common.Constants()
 				// now add all debug-specific constants here
 				.add('LOG_STATES', false)
 			));
