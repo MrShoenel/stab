@@ -11,3 +11,5 @@ resource/main.js
 resource/app*.js
 resource/app/*/*.js
 resource/style/all.css
+
+resource/content/test*html
