@@ -1,5 +1,6 @@
 'use strict';
-var cheerio = require('cheerio');
+var cheerio = require('cheerio'),
+	striptags = require('striptags');
 
 module.exports = function(grunt) {
 	// Dynamically loads all required grunt tasks
@@ -55,7 +56,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/',
-					src: ['**/*.html', '!**/default.html'],
+					src: ['**/*.html', '!**/default.html', '!**/app/**/*.html'],
 					dest: 'public/'
 				}, {
 					expand: true,
@@ -234,6 +235,7 @@ module.exports = function(grunt) {
 				path: contentDir + '/' + file,
 				lastMod: null,
 				urlName: null,
+				teaser: null,
 				meta: {}
 			};
 			
