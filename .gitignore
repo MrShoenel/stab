@@ -1,0 +1,13 @@
+node_modules/
+resource/bower/*
+public/
+.vscode/
+
+*.map
+
+# ignore certain .js files (they're built)
+resource/content/content.json
+resource/main.js
+resource/app*.js
+resource/app/*/*.js
+resource/style/all.css
