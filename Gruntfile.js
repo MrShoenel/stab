@@ -1,3 +1,4 @@
+/* global console */
 'use strict';
 var cheerio = require('cheerio'),
 	striptags = require('striptags');
@@ -235,6 +236,7 @@ module.exports = function(grunt) {
 				path: contentDir + '/' + file,
 				lastMod: null,
 				urlName: null,
+				title: null,
 				teaser: null,
 				meta: {}
 			};
@@ -250,17 +252,21 @@ module.exports = function(grunt) {
 						info.lastMod = new Date(Date.parse(metaContent)).toISOString()
 					} else if (metaName === 'urlname') {
 						info.urlName = metaContent;
+					} else if (metaName === 'title') {
+						info.title = metaContent;
 					} else {
 						info.meta[metaName] = metaContent;
 					}
 				});
+				
+				info.teaser = striptags($('article').html()).replace(/\s+/g, ' ');
 			}
 			
 			return info;
 		});
 		
 		grunt.file.write('./resource/' + contentDir + '/content.json', JSON.stringify(files));
-		console.log('Wrote content.json');
+		console.log('>> Wrote content.json');
 	});
 	
 	grunt.registerTask('watch-all', [
