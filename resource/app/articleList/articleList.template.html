@@ -1,13 +1,14 @@
 <div class="container">
 	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-if="vm.articlesPage.length > 0">
-			<div ng-repeat="article in vm.articlesPage">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-if="vm.currentPage.items.length > 0">
+			<div ng-repeat="metaArticle in vm.currentPage.items">
 				<div class="post-preview">
-					<a href="post.html">
-						<h2 class="post-title">{{ article.title }}</h2>
-						<h3 ng-if="article.teaser" class="post-subtitle">{{ article.teaser }}</h3>
+					<a ui-sref="article({ articleUrlName: metaArticle.urlName })">
+						<h2 class="post-title">{{ metaArticle.title }}</h2>
+						<h3 ng-if="metaArticle.meta.subtitle" class="post-subtitle">{{ metaArticle.meta.subtitle }}</h3>
 					</a>
-					<p class="post-meta">Posted by <a href="#">{{ article.author }}</a> on article.lastMod</p>
+					<p ng-if="metaArticle.teaser" class="post-teaser">{{ metaArticle.teaser }}</p>
+					<p class="post-meta">Posted by <a href="#">{{ metaArticle.meta.author }}</a> on {{ metaArticle.lastMod }}</p>
 				</div>
 				<hr ng-if="!$last" />
 			</div>

@@ -23,7 +23,7 @@ module Blog {
 				
 				$locationProvider.hashPrefix('!');
 				
-				$urlRouterProvider.otherwise('/');
+				$urlRouterProvider.otherwise('/list');
 				
 				// constants
 				configure_constants();
@@ -65,7 +65,7 @@ module Blog {
 							},
 							// absolute targets the default (nameless) view
 							"@": {
-								template: '<div ui-view><article-list></article-list></div>'
+								template: '<div ui-view></div>'
 							}
 						},
 						resolve: {

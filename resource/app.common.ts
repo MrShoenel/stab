@@ -48,13 +48,13 @@ module Common {
 		copyright?: string;
 		description?: string;
 		keywords?: string;
-		title?: string;
 	}
 	
 	export interface MetaArticle {
 		path: string;
 		lastMod: string;
 		urlName: string;
+		title: string;
 
 		meta: Meta;
 	}
@@ -105,6 +105,16 @@ module Common {
 			
 			return pages[0];
 		}
+	}
+	
+	/**
+	 * We might want to have different list-sites and each of them requires
+	 * different logic or filters.
+	 */
+	export interface IListStrategy<T> {
+		type: string;
+		reverse: boolean;
+		itemsList: (source: T[]) => T[];
 	}
 	
 	export interface IKVStore<T> {

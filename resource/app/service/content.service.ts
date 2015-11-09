@@ -12,6 +12,8 @@ module Blog.Service {
 		
 		private cache: angular.ICacheObject;
 		
+		private foo = Math.random();
+		
 		/**
 		 * Used as dependecy-injected factory.
 		 */
@@ -32,8 +34,8 @@ module Blog.Service {
 		
 		public getMetaArticles(): angular.IPromise<Common.MetaArticle[]> {
 			return this.metaArticles === null ? this.initializeMetaContent().then(() => {
-				return this.metaArticles;
-			}) : this.$q.when(this.metaArticles);
+				return this.metaArticles.slice(0);
+			}) : this.$q.when(this.metaArticles.slice(0));
 		}
 	}
 	
