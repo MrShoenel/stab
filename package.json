@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "parallelshell \"bower install\" \"tsd reinstall --save --overwrite\""
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "grunt-tslint": "^2.5.0",
     "grunt-typescript": "^0.8.0",
     "matchdep": "^1.0.0",
+    "parallelshell": "^2.0.0",
     "striptags": "^2.0.4",
     "tsd": "^0.6.5",
     "tslint": "^2.5.1"
