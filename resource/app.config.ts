@@ -23,7 +23,7 @@ module Blog {
 				
 				$locationProvider.hashPrefix('!');
 				
-				$urlRouterProvider.otherwise('/list');
+				$urlRouterProvider.otherwise('/');
 				
 				// constants
 				configure_constants();
@@ -52,6 +52,7 @@ module Blog {
 				 */
 				function configure_states() {
 					$stateProvider.state('main', {
+						abstract: true,
 						url: '/',
 						views: {
 							navigation: {
@@ -71,11 +72,8 @@ module Blog {
 						resolve: {
 							navigation: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.navigation',
-								serie: true,
 								files: [
 									'./script/app/navigation/navigation.directive.js',
-									'./script/app/articleList/articleList.controller.js',
-									'./script/app/articleList/articleList.directive.js',
 									'./script/app/header/header.directive.js',
 									'./script/app/footer/footer.directive.js'
 								]
@@ -91,6 +89,22 @@ module Blog {
 									return $injector.get<Blog.Service.ContentService>('ContentService').initializeMetaContent();
 								});
 							}]
+						}
+					});
+					
+					$stateProvider.state('default', {
+						parent: 'main',
+						url: '',
+						template: '<article-list></article-list>',
+						resolve: {
+							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.articleList',
+								serie: true,
+								files: [
+									'./script/app/articleList/articleList.controller.js',
+									'./script/app/articleList/articleList.directive.js'
+								]
+							})
 						}
 					});
 					
