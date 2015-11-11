@@ -229,7 +229,7 @@ module.exports = function(grunt) {
 		var files = grunt.file.expand({
 			filter: 'isFile',
 			cwd: './resource/' + contentDir
-		}, '*').filter(function(file) {
+		}, '**/*').filter(function(file) {
 			return file !== 'content.json' && file !== 'default.html';
 		}).map(function(file) {
 			var info = {

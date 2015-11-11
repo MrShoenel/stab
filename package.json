@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "postinstall": "parallelshell \"bower install\" \"tsd reinstall --save --overwrite\""
+    "postinstall": "parallelshell \"bower install\" \"tsd install --save\""
   },
   "repository": {
     "type": "git",
