@@ -13,3 +13,4 @@ resource/app/*/*.js
 resource/style/all.css
 
 resource/content/test*html
+resource/content/*/*.html

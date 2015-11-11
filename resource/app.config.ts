@@ -4,6 +4,7 @@
 /// <reference path="../typings/requirejs/require.d.ts" />
 /// <reference path="./app.common.ts" />
 /// <reference path="./app/service/content.service.ts" />
+/// <reference path="./app/article/article.controller.ts" />
 
 
 module Blog {
@@ -123,8 +124,13 @@ module Blog {
 								name: 'blogapp.article',
 								files: [
 										'./script/app/article/article.module.js',
+										'./script/app/article/article.controller.js',
 								]
-							})
+							}),
+							// 'services' is from the parent's resolve
+							currentArticle: ['$stateParams', 'ContentService', 'services', ($stateParams: angular.ui.IStateParamsService, contentService: Service.ContentService, services: any) => {
+								return contentService.articleByUrlName($stateParams['articleUrlName']);
+							}]
 						}
 					});
 					
