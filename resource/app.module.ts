@@ -14,7 +14,8 @@ module Blog {
 			return Blog.configure(angular.module('blogapp', [
 				'ui.router',
 				'oc.lazyLoad',
-				'ui.bootstrap'
+				'ui.bootstrap',
+				'ui.router.stateData'
 			]).constant('CONFIG', new Common.Constants()
 				.add('ITEMS_PER_PAGE', 1)
 			).constant('DEBUG', new Common.Constants()

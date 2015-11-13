@@ -79,8 +79,7 @@ module Blog {
 									'./script/app/footer/footer.directive.js'
 								]
 							}),
-							services: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => {
-								return $ocLazyLoad.load({
+							services: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => $ocLazyLoad.load({
 									name: 'blogapp.service',
 									files: [
 										'./script/app/service/content.service.js'
@@ -88,8 +87,8 @@ module Blog {
 								}).then(() => {
 									// This one will make the service initialize itself.
 									return $injector.get<Blog.Service.ContentService>('ContentService').initializeMetaContent();
-								});
-							}]
+								})
+							]
 						}
 					});
 					
