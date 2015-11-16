@@ -1,4 +1,5 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="../typings/angular-ui-router/angular-ui-router.d.ts" />
 
 /**
  * This file should contain commonly used interfaces and classes.
@@ -50,13 +51,37 @@ module Common {
 		keywords?: string;
 	}
 	
-	export interface MetaArticle {
+	export interface MetaArticle extends Meta {
 		path: string;
 		lastMod: string;
 		urlName: string;
 		title: string;
-
-		meta: Meta;
+	}
+	
+	export class Article {
+		constructor(private _metaArticle: MetaArticle, private _original: string, private $sce: angular.ISCEService) {
+		}
+		
+		public get meta(): MetaArticle {
+			return angular.extend({}, this._metaArticle);
+		}
+		
+		public get original(): string {
+			return this._original.substr(0);
+		}
+		
+		public get asJQuery(): angular.IAugmentedJQuery {
+			return angular.element(this._original);
+		}
+		
+		public get asTrustedHtml(): any {
+			var article = Array.prototype.slice.call(this.asJQuery, 0).filter(element => {
+				return element instanceof HTMLElement &&
+					(<HTMLElement>element).nodeName.toUpperCase() === 'ARTICLE';
+			})[0];
+			
+			return this.$sce.trustAsHtml(angular.element(article).html());
+		}
 	}
 	
 	export class Page<T> {
@@ -64,7 +89,7 @@ module Common {
 		next: Page<T>;
 		prev: Page<T>;
 		
-		constructor(public items: T[]) {
+		constructor(public items: T[], public index: number) {
 			this.next = null;
 			this.prev = null;
 		}
@@ -92,7 +117,7 @@ module Common {
 			var pages: Page<T1>[] = [];
 			
 			for (let i = 0; i < numChunks; i++) {
-				pages.push(new Page<T1>(allItems.splice(0, partSize)));
+				pages.push(new Page<T1>(allItems.splice(0, partSize), i));
 			}
 			for (let i = 0; i < numChunks; i++) {
 				if (i > 0) {
@@ -115,6 +140,19 @@ module Common {
 		type: string;
 		reverse: boolean;
 		itemsList: (source: T[]) => T[];
+	}
+	
+	export class I2Tuple<T1, T2> {
+		constructor(private _t1: T1, private _t2: T2) {
+		}
+		
+		public get t1() {
+			return this._t1;
+		}
+		
+		public get t2() {
+			return this._t2;
+		}
 	}
 	
 	export interface IKVStore<T> {
