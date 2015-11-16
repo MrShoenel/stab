@@ -1,6 +1,7 @@
 /* global console */
 'use strict';
-var cheerio = require('cheerio'),
+var fs = require('fs'),
+	cheerio = require('cheerio'),
 	striptags = require('striptags');
 
 module.exports = function(grunt) {
@@ -226,6 +227,10 @@ module.exports = function(grunt) {
 	grunt.registerTask('make-content', function() {
 		var contentDir = 'content', rxHtml = /\.html?$/i;
 		
+		var getAutoLastMod = function(path) {
+			return new Date(Date.parse(fs.statSync(path).mtime)).toISOString();
+		};
+		
 		var files = grunt.file.expand({
 			filter: 'isFile',
 			cwd: './resource/' + contentDir
@@ -237,8 +242,7 @@ module.exports = function(grunt) {
 				lastMod: null,
 				urlName: null,
 				title: null,
-				teaser: null,
-				meta: {}
+				teaser: null
 			};
 			
 			if (rxHtml.test(file)) {
@@ -248,18 +252,33 @@ module.exports = function(grunt) {
 					var metaName = $(htmlMeta).attr('name').toLowerCase(),
 						metaContent = $(htmlMeta).attr('content');
 					
-					if (metaName === 'last-modified') {
-						info.lastMod = new Date(Date.parse(metaContent)).toISOString()
+					if (metaName === 'lastmodified') {
+						if (metaContent === 'auto') {
+							info.lastMod = getAutoLastMod('./resource/' + info.path);
+						} else {
+							info.lastMod = new Date(Date.parse(metaContent)).toISOString()
+						}
 					} else if (metaName === 'urlname') {
 						info.urlName = metaContent;
 					} else if (metaName === 'title') {
 						info.title = metaContent;
 					} else {
-						info.meta[metaName] = metaContent;
+						info[metaName] = metaContent;
 					}
 				});
 				
-				info.teaser = striptags($('article').html()).replace(/\s+/g, ' ');
+				info.teaser = striptags($('article').html()).replace(/\s+/g, ' ').trim();
+			}
+
+			// now check for lastmod, urlname and title:
+			if (!info.lastMod) {
+				info.lastMod = getAutoLastMod('./resource/' + info.path);
+			}
+			if (!info.urlName) {
+				info.urlName = file;
+			}
+			if (!info.title) {
+				info.title = file;
 			}
 			
 			return info;
