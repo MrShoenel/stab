@@ -27,5 +27,5 @@ requirejs.config({
 });
 
 requirejs(['app'], () => {
-	angular.bootstrap(document.body, ['blogapp']);
+	angular.bootstrap(document.querySelector('html'), ['blogapp']);
 });

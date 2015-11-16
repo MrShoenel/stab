@@ -18,6 +18,10 @@ module Blog {
 				'ui.router.stateData'
 			]).constant('CONFIG', new Common.Constants()
 				.add('ITEMS_PER_PAGE', 1)
+				// If this is set to true, articles' html can contain angular
+				// directives and we'll be using bindHtmlCompile instead of the
+				// plain ngBindHtml.
+				.add('ALLOW_ANGULAR_HTML', true)
 			).constant('DEBUG', new Common.Constants()
 				// now add all debug-specific constants here
 				.add('LOG_STATES', false)
