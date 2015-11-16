@@ -6,14 +6,20 @@
 module Blog.Article {
 
 	export class ArticleController {
+		
+		public useBindHtmlCompile: boolean;
+		
+		private article: Common.Article;
+		
+		public articleHtml: any;
     
     /**
 		 * Used as dependecy-injected factory.
 		 */
-		public static inlineAnnotatedConstructor: any[] = ['ContentService', '$stateParams', ArticleController];
+		public static inlineAnnotatedConstructor: any[] = ['ContentService', 'CONFIG', ArticleController];
 		
-		public constructor(private ContentService: Blog.Service.ContentService, private $stateParams: angular.ui.IStateParamsService) {
-			console.log($stateParams);
+		public constructor(private ContentService: Blog.Service.ContentService, private Config: Common.Constants) {
+			this.useBindHtmlCompile = Config.get<boolean>('ALLOW_ANGULAR_HTML');
 		}
   }
 
