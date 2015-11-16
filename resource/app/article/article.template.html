@@ -1,0 +1,10 @@
+<article>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div ng-if="vm.useBindHtmlCompile" ng-bind-html="$uiStateData.article.asTrustedHtml"></div>
+				<div ng-if="vm.useBindHtmlCompile" bind-html-compile="$uiStateData.article.asTrustedHtml"></div>
+			</div>
+		</div>
+	</div>
+</article>

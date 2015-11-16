@@ -54,7 +54,7 @@ module Blog {
 				function configure_states() {
 					$stateProvider.state('main', {
 						abstract: true,
-						url: '/',
+						url: '',
 						views: {
 							navigation: {
 								template: '<app-navigation></app-navigation>'
@@ -94,7 +94,7 @@ module Blog {
 					
 					$stateProvider.state('default', {
 						parent: 'main',
-						url: '',
+						url: '/',
 						template: '<article-list></article-list>',
 						resolve: {
 							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
@@ -107,11 +107,15 @@ module Blog {
 							})
 						}
 					});
-					
-					$stateProvider.state('article', {
+
+					$stateProvider.state('read', {
 						parent: 'main',
-						url: 'article/{articleUrlName:string}',
-						template: '<div ui-view></div>',
+						url: '/read/{urlName:.*}',
+						controller: 'ArticleController',
+						controllerAs: 'vm',
+						templateProvider: ['$templateFactory', ($templateFactory: Common.$TemplateFactory) => {
+							return $templateFactory.fromUrl('./script/app/article/article.template.html');
+						}],
 						params: {
 							articleUrlName: {
 								value: undefined, // there is no default
@@ -124,23 +128,30 @@ module Blog {
 								files: [
 										'./script/app/article/article.module.js',
 										'./script/app/article/article.controller.js',
+										'./script/app/article/htmlCompile.directive.js',
 								]
 							}),
 							// 'services' is from the parent's resolve
 							currentArticle: ['$stateParams', 'ContentService', 'services', ($stateParams: angular.ui.IStateParamsService, contentService: Service.ContentService, services: any) => {
-								return contentService.articleByUrlName($stateParams['articleUrlName']);
+								return contentService.articleByUrlName($stateParams['urlName']);
+							}],
+							$uiStateData: ['currentArticle', (currentArticle: Common.Article) => {
+								return {
+									article: currentArticle,
+									title: currentArticle.meta.title
+								};
 							}]
 						}
 					});
 					
 					$stateProvider.state('list', {
 						parent: 'main',
-						url: 'list/{listType:string}/{pageIdx:int}',
+						url: '/list/{listType:string}/{pageIdx:int}',
 						template: '<article-list></article-list>',
 						params: {
 							listType: {
 								value: 'all', // there is no default
-								squash: true
+								squash: false
 							},
 							pageIdx: {
 								value: 0,
@@ -151,9 +162,25 @@ module Blog {
 							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.list',
 								files: [
-										'./script/app/list/list.module.js',
+									'./script/app/list/list.module.js',
+									'./script/app/articleList/articleList.controller.js',
+									'./script/app/articleList/articleList.directive.js'
 								]
-							})
+							}),
+							$uiStateData: ['$stateParams', ($stateParams: angular.ui.IStateParamsService) => {
+								var type = $stateParams['listType'], title;
+								
+								switch (type) {
+									case 'all': {
+										title = 'All articles';
+										break;
+									}
+								}
+								
+								return {
+									title: 'List' + (title ? ': ' + title : '')
+								};
+							}]
 						}
 					});
 				};
