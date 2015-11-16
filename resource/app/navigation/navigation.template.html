@@ -14,7 +14,13 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<li ng-if="vm.metaArticles.length > 0" ng-repeat="metaArticle in vm.metaArticles"><a ui-sref="article({ articleUrlName: metaArticle.urlName })">{{ metaArticle.title }}</a></li>
+				<li ng-if="vm.metaArticles.length > 0" ng-repeat="metaArticle in vm.metaArticles">
+					<!-- We're not using ui-sref as it would encode the slash (/). -->
+					<a href="#!/read/{{ metaArticle.urlName }}">{{ metaArticle.title }}</a>
+				</li>
+				<li>
+					<a href="#!/list/">All</a>
+				</li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

@@ -20,8 +20,9 @@ module Blog {
 			controller: ['ContentService', function(ContentService: Service.ContentService) {
 				var that = this;
 				this.metaArticles = [];
-				ContentService.getTopMetaArticles().then(metaArts => {
-					that.metaArticles = metaArts
+				
+				ContentService.getMetaArticles(new Common.I2Tuple("displayat", "topnav")).then(metaArts => {
+					that.metaArticles = metaArts;
 				});
 			}]
 		}
