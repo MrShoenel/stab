@@ -3,7 +3,8 @@
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-if="vm.currentPage.items.length > 0">
 			<div ng-repeat="metaArticle in vm.currentPage.items">
 				<div class="post-preview">
-					<a ui-sref="article({ articleUrlName: metaArticle.urlName })">
+					<!-- We're not using ui-sref as it would encode the slash (/). -->
+					<a href="#!/read/{{ metaArticle.urlName }}"">
 						<h2 class="post-title">{{ metaArticle.title }}</h2>
 						<h3 ng-if="metaArticle.meta.subtitle" class="post-subtitle">{{ metaArticle.meta.subtitle }}</h3>
 					</a>
@@ -12,13 +13,20 @@
 				</div>
 				<hr ng-if="!$last" />
 			</div>
-			<!--<hr>
-			<!-- Pager --><!--
-			<ul class="pager">
-				<li class="next">
-						<a href="#">Older Posts &rarr;</a>
-				</li>
-			</ul>-->
+			<div ng-if="vm.currentPage.hasPrev() || vm.currentPage.hasNext()">
+				<hr />
+				<!-- Pager -->
+				<ul class="pager">
+					<li class="previous" ng-if="vm.currentPage.hasPrev()">
+						<a ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index - 1 })">prev</a>
+						<!--<a ng-click="vm.gotoPrevPage()">&larr; Newer Posts</a>-->
+					</li>	
+					<li class="next" ng-if="vm.currentPage.hasNext()">
+						<a ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index + 1 })">next</a>
+						<!--<a ng-click="vm.gotoNextPage()">Older Posts &rarr;</a>-->
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

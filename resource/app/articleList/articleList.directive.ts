@@ -15,7 +15,13 @@ module Blog.ArticleList {
 			replace: true,
 			
 			controller: 'ArticleListController',
-			controllerAs: 'vm'
+			controllerAs: 'vm',
+			
+			scope: {
+				listType: '@',
+				sortReverse: '@',
+				pageIndex: '@'
+			}
 		}
 	}
 	
