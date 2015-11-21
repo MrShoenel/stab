@@ -101,6 +101,7 @@ module Blog {
 								name: 'blogapp.articleList',
 								serie: true,
 								files: [
+									'./script/app/articleList/listStrategies.js',
 									'./script/app/articleList/articleList.controller.js',
 									'./script/app/articleList/articleList.directive.js'
 								]
@@ -150,7 +151,7 @@ module Blog {
 						template: '<article-list></article-list>',
 						params: {
 							listType: {
-								value: 'all', // there is no default
+								value: 'all',
 								squash: false
 							},
 							pageIdx: {
@@ -162,23 +163,14 @@ module Blog {
 							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.list',
 								files: [
-									'./script/app/list/list.module.js',
+									'./script/app/articleList/listStrategies.js',
 									'./script/app/articleList/articleList.controller.js',
 									'./script/app/articleList/articleList.directive.js'
 								]
 							}),
 							$uiStateData: ['$stateParams', ($stateParams: angular.ui.IStateParamsService) => {
-								var type = $stateParams['listType'], title;
-								
-								switch (type) {
-									case 'all': {
-										title = 'All articles';
-										break;
-									}
-								}
-								
 								return {
-									title: 'List' + (title ? ': ' + title : '')
+									title: 'dir:/' + $stateParams['listType']
 								};
 							}]
 						}

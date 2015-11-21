@@ -107,10 +107,9 @@ module Common {
 		 * given chunk-size. All pages are linked together and the first
 		 * page is returned.
 		 */
-		public static partitionAndGetFirstPage<T1>(allItems: T1[], partSize: number = 5): Page<T1> {
-			
+		public static partitionAndGetFirstPage<T1>(allItems: T1[], partSize: number = 5): Page<T1> {			
 			if (allItems.length === 0) {
-				throw new Error('Nothing to partition!');
+				return new Page<T1>([], 0);
 			}
 			
 			var numChunks = Math.ceil(allItems.length / partSize);
@@ -136,10 +135,23 @@ module Common {
 	 * We might want to have different list-sites and each of them requires
 	 * different logic or filters.
 	 */
-	export interface IListStrategy<T> {
-		type: string;
-		reverse: boolean;
-		itemsList: (source: T[]) => T[];
+	export abstract class AListStrategy {
+		constructor(public type: string, public reverse: boolean) { }
+		
+		/**
+		 * This method supposedly returns an ordered array of meta-articles
+		 * based on the implemented strategy and given parameters.
+		 */
+		itemsList: (source: MetaArticle[]) => MetaArticle[];
+		/**
+		 * Static method that returns false by default. When a specific
+		 * list-type is requested, the designated controller will probe
+		 * all registered ListStrategies with this method. Each strategy
+		 * should override this static method.
+		 */
+		static canHandle(listType: string): boolean {
+			return false;
+		};
 	}
 	
 	export class I2Tuple<T1, T2> {

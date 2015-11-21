@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts" />
 /// <reference path="../../../typings/angular-ui-router/angular-ui-router.d.ts" />
 /// <reference path="../../app.common.ts" />
+/// <reference path="./listStrategies.ts" />
 /// <reference path="../service/content.service.ts" />
 
 module Blog.ArticleList {
@@ -31,7 +32,7 @@ module Blog.ArticleList {
 				});
 				
 				this.currentPage = Common.Page.partitionAndGetFirstPage(
-					ArticleListController.getStrategy(this.listType, this.sortReverse).itemsList(metaArts));
+					this.getStrategy(this.listType, this.sortReverse).itemsList(metaArts));
 				
 				// advance to page
 				var idx = this.pageIndex;
@@ -51,29 +52,25 @@ module Blog.ArticleList {
 			this.currentPage = this.currentPage.next;
 		}
 		
-		private static getStrategy(listType: string = 'all', sortReverse: boolean = false): Common.IListStrategy<Common.MetaArticle> {
-			switch (listType.toLowerCase()) {
-				case 'all':
-					return new ListAllStrategy();
-					break;
-				default:
+		private getStrategy(listType: string = 'all', sortReverse: boolean = false, throwIfNone = false): Common.AListStrategy {
+			
+			var allStratgiesNames: string[] = Object.keys(ArticleList).filter(key => {
+				return typeof ArticleList[key]['canHandle'] === 'function' &&
+					new ArticleList[key]() instanceof Common.AListStrategy &&
+					ArticleList[key]['canHandle'](listType);
+			});
+			
+			if (allStratgiesNames.length === 0) {
+				if (throwIfNone) {
 					throw new Error('Unknown list-type strategy: ' + listType);
+				} else {
+					return new ListAllStrategy(listType, sortReverse);
+				}
 			}
+			
+			return new ArticleList[allStratgiesNames[0]](listType, sortReverse);
 		}
   }
-	
-	/**
-	 * The default list-strategy that chronologically orders all articles,
-	 * newest to oldest.
-	 */
-	export class ListAllStrategy implements Common.IListStrategy<Common.MetaArticle> {
-		type = 'all';
-		reverse = false;
-		itemsList = (source: Common.MetaArticle[]) => {
-			var x = this.reverse ? -1 : 1, y = this.reverse ? 1 : -1;
-			return source.sort((a, b) => Date.parse(a.lastMod) < Date.parse(b.lastMod) ? x : y);	
-		}
-	}
 
   angular.module('blogapp').controller('ArticleListController', ArticleListController.inlineAnnotatedConstructor);
 }
