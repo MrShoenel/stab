@@ -99,13 +99,17 @@ module Blog {
 						resolve: {
 							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.articleList',
-								serie: true,
 								files: [
 									'./script/app/articleList/listStrategies.js',
 									'./script/app/articleList/articleList.controller.js',
 									'./script/app/articleList/articleList.directive.js'
 								]
-							})
+							}),
+							$uiStateData: [() => {
+								return {
+									title: 'Home'
+								};
+							}]
 						}
 					});
 
@@ -137,10 +141,18 @@ module Blog {
 								return contentService.articleByUrlName($stateParams['urlName']);
 							}],
 							$uiStateData: ['currentArticle', (currentArticle: Common.Article) => {
-								return {
-									article: currentArticle,
-									title: currentArticle.meta.title
-								};
+								var am = currentArticle.meta, ho = (prop: string) => am.hasOwnProperty(prop),
+									stateData = {
+										article: currentArticle,
+										title: currentArticle.meta.title,
+										meta: [
+											['last-modified', new Date(Date.parse(am.lastMod))['toGMTString']()]
+										]
+									};
+								
+								['author', 'copyright', 'description', 'keywords'].filter(prop => ho(prop)).forEach(prop => stateData.meta.push([prop, am[prop]]));
+
+								return stateData;
 							}]
 						}
 					});

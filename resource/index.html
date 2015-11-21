@@ -3,12 +3,15 @@
 	<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Repeatable meta-data from the current state -->
+    <meta ng-repeat-start="meta in $uiStateData.meta" ng-repeat-end name="{{ meta[0] }}" content="{{ meta[1] }}" />
 
     <!-- Favicons -->
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="shorcut icon" href="favicon.ico" />
+    <!-- empty favicon -->
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=" />
 
     <!-- Theme styles -->
     <link rel="stylesheet" href="style/bootstrap.min.css" />
@@ -26,7 +29,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
     
-    <title ng-bind="($uiStateData.title || 'stab - the Static Tidy Angular Blog')">stab - the Static Tidy Angular Blog</title>
+    <title ng-bind="$uiStateData.title + ' | stab - the Static Tidy Angular Blog'">stab - the Static Tidy Angular Blog</title>
 	</head>
 	
 	<body>
