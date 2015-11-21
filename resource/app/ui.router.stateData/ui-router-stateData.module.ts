@@ -6,7 +6,9 @@
 /// <reference path="./../../app.config.ts" />
 
 /**
- * This is the main module of the blog.
+ * This module is based on ideas for angular-ui-router-title. It
+ * provides arbitrary and hierarchical state-data. This module is
+ * an enhanced replacement for angular-ui-router-title.
  */
 module Ui.Router.StateData {
 	export class UiRouterStateData implements Common.IModuleFactory {
