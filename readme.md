@@ -57,7 +57,7 @@ In short that means the following:
 * You may add images to your articles under [./resource/images/](#) and use the meta-tag *bgimage* to refer to them.
 
 ## How-to: Publish your blog
-The first step is to build your blog and its content content. When you later only edit the contents but not the stab per se, it's enough to only build the content.
+The first step is to build your blog and its content. When you later only edit the contents but not **stab** per se, it's enough to only build that.
 * To build everything, run ***[./node_modules/.bin/grunt default](#)*** (where the default-parameter is optional)
 	* Now upload everything from the directory ***[./public/](#)*** to your web-server's document-root, that's it!
 * To only build the content, run ***[./node_modules/.bin/grunt make-content](#)***
@@ -76,10 +76,6 @@ There is a bunch of useful tasks to aid the development or creation of content w
 | ___make-content___ | Does what it says: It builds all your articles from the content-directory. Creates the *content.json* which is picked up by the frontend. | - | - | - |
 | ___watch-content___ | Watches for changes in the content-directory (add/remove/change etc.) and re-builds your content whenever necessary. Also, it comes with an ***http-server*** in the background that serves ***stab*** from port 80 so you can immediately review your content. | ___--port=&lt;int&gt;___ | Override the default port (80) where you can access the current build. | This is the most convenient task for when authoring content. |
 | ___watch-all___ | Used during development. Employs concurrent watches on all resources and rebuilds them if necessary. Also copies over new files if required. Also watches content. | ___--port=&lt;int&gt;___ | *same as above* |The watch task is ideal during development as it keeps track of files and takes necessary actions if they change.|
-
-[//]: <> (| ___watch-tests___ | Watch-tests specifically for tests. Compiles tests if necessary. ||| Can of course be used in parallel to _watch-dev_. |)
-[//]: <> (| ___watch-md___ | Watches the markdown documents (readme) and compiles them. |||||)
-
 
 ---
 
