@@ -56,11 +56,12 @@ module Blog.ArticleList {
 	 */
 	export class SimpleSearchStrategy extends Common.AListStrategy {
 		itemsList = (source: Common.MetaArticle[]) => {
-			var searchParam = (<string>this.injected['locationSearch']).toLowerCase();
+			var searchParam = <string>this.injected['locationSearch'];
 			
 			if (searchParam === undefined) {
 				return source.slice(0);
 			}
+			searchParam = searchParam.toLowerCase();
 			
 			return source.map(metaArt => {
 				metaArt.score = Math.max.apply(null, Object.keys(metaArt).map(key => {
