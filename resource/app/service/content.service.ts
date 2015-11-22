@@ -78,9 +78,13 @@ module Blog.Service {
 			var postFilter = filter instanceof Common.I2Tuple ?
 				(metaArt: Common.MetaArticle) => metaArt.hasOwnProperty(filter.t1) && metaArt[filter.t1] === filter.t2 :
 				(filter instanceof Function ? filter : (dummy: Common.MetaArticle) => true);
+			var dateMethod = Date.prototype['toGMTString'] || Date.prototype.toLocaleString || Date.prototype.toString;
 			
 			return this.metaArticles === null ? this.initializeMetaContent().then(() => {
-				return this.metaArticles.slice(0).filter(postFilter);
+				return this.metaArticles.slice(0).filter(postFilter).map(metaArt => {
+					metaArt.lastMod = dateMethod.call(new Date(Date.parse(metaArt.lastMod)));
+					return metaArt;
+				});
 			}) : this.$q.when(this.metaArticles.slice(0).filter(postFilter));
 		}
 	};
