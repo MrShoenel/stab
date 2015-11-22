@@ -1,6 +1,7 @@
 /* global console */
 'use strict';
 var fs = require('fs'),
+	process = require('process'),
 	cheerio = require('cheerio'),
 	striptags = require('striptags');
 
@@ -115,6 +116,35 @@ module.exports = function(grunt) {
 					src: './resource/bower/bootstrap-css-only/css/bootstrap-theme.min.css',
 					dest: './public/style/bootstrap-theme.min.css'
 				}]
+			}
+		},
+		
+		/**
+		 * This section contains commands which we execute through grunt.
+		 */
+		exec: {
+			changelog: {
+				stdout: false,
+				stderr: false,
+				command: 'git -C ' + process.cwd() + ' log --pretty=format:"([`%h`](https://github.com/MrShoenel/stab/commit/%H)) %s" --graph',
+				callback: function(error, stdout, stderr) {
+					if (error) {
+						console.error(error);
+						return;
+					}
+					
+					var mileStoneMatch = /\d+?\.\d+?\.\d+?/i;
+					
+					var lines = stdout.split('\n').filter(function(line) {
+						return line.trim().length > 0;
+					}).map(function(line) {
+						line = line.substr(2).trim(); // remove '* '
+						return '* ' + (mileStoneMatch.test(line) ? '**' + line + '**' : line);
+					});
+					
+					grunt.file.write('change.log', lines.join('\n'));
+					console.log('>> Wrote change.log');
+				}
 			}
 		},
 		
@@ -362,6 +392,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', [
 		'clean',
 		'less', 'tslint', 'typescript', 'markdown', 'create-content',
-		'copy'
+		'copy',
+		'exec:changelog'
 	]);
 };

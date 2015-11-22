@@ -1,0 +1,49 @@
+* **([`2157361`](https://github.com/MrShoenel/stab/commit/2157361d0ece14a9c14841649ebd6c056fd0bd39)) Introduce concept of extended state data to maintain state-params and location search and updated to 1.0.2**
+* ([`a143e97`](https://github.com/MrShoenel/stab/commit/a143e97a8745cbbc62a013ee1fc2ca52f05f625e)) Fix potential bug when injection is empty and do cosmetic changes to search results
+* **([`119b7ad`](https://github.com/MrShoenel/stab/commit/119b7adb4f5e09ecf189d4b170fde79e8d8776e4)) Updated stab to v1.0.1 and made some cosmetical fixes**
+* ([`9aeb367`](https://github.com/MrShoenel/stab/commit/9aeb367a749bafcb1edc12bd01212dbef30c9b1d)) Made the search case-insensitive as most people type lowercase anyway
+* ([`d2ef9f0`](https://github.com/MrShoenel/stab/commit/d2ef9f0e7ceff07ca1c5e308adf90851d3a9b2a8)) Stopped tracking of a file which should've been a test
+* **([`60f33e2`](https://github.com/MrShoenel/stab/commit/60f33e2b1bbfd54ba0af8abb9aa3fde76962d7f1)) Enhanced the readme and upgraded stab's version to 1.0.0 so it can be released**
+* ([`413b5e3`](https://github.com/MrShoenel/stab/commit/413b5e3bd705bbe24fa07d80b181ac0e425e5172)) Tiny refactorings to the content-service to format dates consistently
+* ([`94d4f73`](https://github.com/MrShoenel/stab/commit/94d4f739f2a709c942ed05913419a550105c2c9d)) Small changes to the styles as needed for the search
+* ([`1231271`](https://github.com/MrShoenel/stab/commit/1231271e748cda59d9a9cd9ac051700c93aaf0e9)) Added the new list-type search feature to stab
+* ([`7696a7b`](https://github.com/MrShoenel/stab/commit/7696a7bc0c936e796f5d866a4e08a2afdc7fe364)) Added the markdown feature for content and readme as well as new tasks for that
+* ([`9cbe637`](https://github.com/MrShoenel/stab/commit/9cbe637185714347bb591890abf8ad71acf51c8f)) Improved the default template and added meta-tag rendering
+* ([`af4dba5`](https://github.com/MrShoenel/stab/commit/af4dba5aacfbd3e223c67e655d7521d70ea965bc)) Tiny small cosmetic fixes
+* ([`cedf5ff`](https://github.com/MrShoenel/stab/commit/cedf5ff9699555f7b35930c3655301482ae28f6d)) Refactored the whole List-Strategy mechanism to support arbitrary strategies
+* ([`97d905c`](https://github.com/MrShoenel/stab/commit/97d905cd8eb01fa504f3a0aad896fe0081ac3580)) Changed the comment/purpose of the ui-stateDate module
+* ([`5f60e66`](https://github.com/MrShoenel/stab/commit/5f60e664f1800e7c771c9504f4d0d56576409842)) Added the fontawesome to the local resources to avoid CDN-loading
+* **([`af0f18c`](https://github.com/MrShoenel/stab/commit/af0f18c80c65b22b60ffa3a0732f6e729f082c33)) Changed to version 0.9.0 for first push to master. App is working fine but needs polishing.**
+* ([`79295dc`](https://github.com/MrShoenel/stab/commit/79295dc027f4bb9e4bf8ddb2e2836e6ffb935346)) Changes to the content-service and article-controller regarding (meta-)articles
+* ([`149d7d4`](https://github.com/MrShoenel/stab/commit/149d7d4ed8ed8b0fa21fb03ea7d880ac2bd3f68a)) Improved the default template and refactored the content directory structure
+* ([`e8fea2d`](https://github.com/MrShoenel/stab/commit/e8fea2dacb3aca29cdde7cfe41232ec5de85269b)) Change from ui-sref to href in the navigation
+* ([`69eac15`](https://github.com/MrShoenel/stab/commit/69eac15eed8ceaf7a9a1c2776addeb51e7907895)) Changes to the articleList module, directive and template
+* ([`d0d86c3`](https://github.com/MrShoenel/stab/commit/d0d86c30cbeb58a929f2578769fa6c2f8608ac3f)) Added a directive to compile angular-flavored Html articles
+* ([`8c201ee`](https://github.com/MrShoenel/stab/commit/8c201ee9e8777e025263b55ab2ae57e76412483b)) Fixes to the bootstrap-mechanism and allowed content to be angular-flavored Html
+* ([`f27df07`](https://github.com/MrShoenel/stab/commit/f27df07e5161412fb7c79ba44fd6090fd00faa60)) Added classes Article and I2Tuple to the Common-namespace
+* ([`9b40086`](https://github.com/MrShoenel/stab/commit/9b400863db2e287b287afffe11dd33ac873ef5db)) Improved the make-content task in the Gruntfile
+* ([`68cc665`](https://github.com/MrShoenel/stab/commit/68cc6654e61ef341e06aa56443b77ef9c85ceea8)) Added the module ui-router-stateData and changed the configuration
+* ([`1a81329`](https://github.com/MrShoenel/stab/commit/1a81329d45b25f39caa603ead3ac5397086ab222)) Add custom ui-router-stateData module (yet empty)
+* ([`343569d`](https://github.com/MrShoenel/stab/commit/343569da2c41b9f80266d2891c62e08607943fbe)) Small fixes to Gruntfile, typings and package.json-scripts
+* ([`830527b`](https://github.com/MrShoenel/stab/commit/830527b2e36c767357d405f9a2ad8204f4c1480d)) Added mechanisms to allow articles on the top-nav bar (controllers, directives, service-dependencies)
+* ([`acdb098`](https://github.com/MrShoenel/stab/commit/acdb09866cc54606c700913f48886e8f7b51572c)) Added grunt parallelshell and installation scripts
+* ([`f10cbae`](https://github.com/MrShoenel/stab/commit/f10cbaee5ec9a3325cb867d119201dbd7d29bd48)) Made home-state abstract to allow custom homepage
+* ([`d2c34ef`](https://github.com/MrShoenel/stab/commit/d2c34ef8fd9a584802ff3d7c7257dcd5261b4b37)) Upgraded the default template and stopped tracking of test-articles.
+* ([`031c74b`](https://github.com/MrShoenel/stab/commit/031c74b0648f8c58c92246dd2ab04d33ccc12e26)) Changed the app config for default to /list and added list-strategies
+* ([`6d662b8`](https://github.com/MrShoenel/stab/commit/6d662b80ef58d09e0f35f5f12f4cb2c5ff5c50a6)) Added support for title and teaser.
+* ([`33fb420`](https://github.com/MrShoenel/stab/commit/33fb420e33073333e1663d7b61154ea8344cc4f6)) Rearranged the app's list module and article-service (now: ContentService)
+* ([`7a94291`](https://github.com/MrShoenel/stab/commit/7a942913353838f6af265c660100f0d86dd905c8)) Fixed the app's config and states and added interfaces and standard classes
+* ([`535728a`](https://github.com/MrShoenel/stab/commit/535728a7cf04f87890796d534ad2ea7dab0e8fb4)) Rearranged the ArticleList directive and made the template functional
+* ([`c07b7a5`](https://github.com/MrShoenel/stab/commit/c07b7a5d7608791b3a54e8c2f058efe693feddb1)) Updated .gitignore and removed test-articles
+* ([`47913b5`](https://github.com/MrShoenel/stab/commit/47913b531fce992805458835bc2538452f7ede0b)) Added npm-striptags for teaser generation and fixed bug with copying html files
+* ([`ab77f2e`](https://github.com/MrShoenel/stab/commit/ab77f2ee2f262d8e41387818e1f386e6709a55ee)) Added jQuery typings (required by angular)
+* ([`be619b5`](https://github.com/MrShoenel/stab/commit/be619b5cdbc380e1959027a29c5b2eb8960935b9)) Added missing fonts
+* ([`f0f7f50`](https://github.com/MrShoenel/stab/commit/f0f7f5036f3794a90713b77d265e5799f45e805b))  Added applications modules, directives, services and configuration
+* ([`118562c`](https://github.com/MrShoenel/stab/commit/118562c955509d9a053f7b67b400b7fc8416746a)) Added the default-template for html-articles and two test articles
+* ([`fe8f241`](https://github.com/MrShoenel/stab/commit/fe8f2414fe52f50f453389dce90d008982aa5588)) Added typings for angular, ui-router, oclazyload and requirejs
+* ([`07305c0`](https://github.com/MrShoenel/stab/commit/07305c0e0d11b6580677f76acb57bdd60400e31e)) Updated type-definitions
+* ([`c9d85ac`](https://github.com/MrShoenel/stab/commit/c9d85ac7ec2fd6e1915707238d04b4613ea19c76)) Default styles, fonts and images
+* ([`d9f4a29`](https://github.com/MrShoenel/stab/commit/d9f4a299f537f7580a219fcaf477b68a9dd6be2e)) Initial project configuration for Grunt, Bower, the package, tsd-typings and tslint.
+* ([`7ff8f83`](https://github.com/MrShoenel/stab/commit/7ff8f83fc78460ef37d1078805d422470dcd74d4)) Added a first readme.md
+* ([`80184e1`](https://github.com/MrShoenel/stab/commit/80184e1b44f7a7577628dd5819f42696dd113f13)) Changed license to Apache 2.0
+* ([`4dfb1ef`](https://github.com/MrShoenel/stab/commit/4dfb1ef3c44f681f697ff04e8b186911d392af8a)) Initial commit

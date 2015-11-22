@@ -1,6 +1,10 @@
 #stab
 
-***stab*** stands for **S**tatic **T**idy **A**ngular **B**log
+***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
+
+The current version is ***1.0.2***. Please refer to the [Changelog with milestones](/MrShoenel/stab/wiki/changelog) for details.
+
+
 
 ---
 
