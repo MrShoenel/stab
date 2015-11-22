@@ -56,7 +56,7 @@ module Blog.ArticleList {
 	 */
 	export class SimpleSearchStrategy extends Common.AListStrategy {
 		itemsList = (source: Common.MetaArticle[]) => {
-			var searchParam = <string>this.injected['locationSearch'];
+			var searchParam = (<string>this.injected['locationSearch']).toLowerCase();
 			
 			if (searchParam === undefined) {
 				return source.slice(0);
@@ -65,7 +65,7 @@ module Blog.ArticleList {
 			return source.map(metaArt => {
 				metaArt.score = Math.max.apply(null, Object.keys(metaArt).map(key => {
 					return angular.isString(metaArt[key]) ?
-						SimpleSearchStrategy.score(<string>metaArt[key], searchParam) : 0;
+						SimpleSearchStrategy.score((<string>metaArt[key]).toLowerCase(), searchParam) : 0;
 				}));
 				return metaArt;
 			}).filter(metaArt => metaArt.score > 0).sort((o1, o2) => {
