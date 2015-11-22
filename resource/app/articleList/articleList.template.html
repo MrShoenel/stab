@@ -1,15 +1,24 @@
 <div class="container">
 	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-if="vm.isSearch">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</span>
+				<input autofocus class="form-control" type="search" ng-model="vm.searchTerm" ng-keyup="vm.search()" />
+			</div>
+		</div>
+		
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" ng-if="vm.currentPage.items.length > 0">
 			<div ng-repeat="metaArticle in vm.currentPage.items">
 				<div class="post-preview">
 					<!-- We're not using ui-sref as it would encode the slash (/). -->
 					<a href="#!/read/{{ metaArticle.urlName }}"">
-						<h2 class="post-title">{{ metaArticle.title }}</h2>
-						<h3 ng-if="metaArticle.meta.subtitle" class="post-subtitle">{{ metaArticle.meta.subtitle }}</h3>
+						<h2 class="post-title">{{ metaArticle.title }} <span class="small text-success" ng-if="vm.isSearch">{{ (100 * (metaArticle.score || 0)).toFixed(2) + '% ' }}</span></h2>
+						<h3 ng-if="metaArticle.subtitle" class="post-subtitle">{{ metaArticle.subtitle }}</h3>
 					</a>
 					<p ng-if="metaArticle.teaser" class="post-teaser">{{ metaArticle.teaser }}</p>
-					<p class="post-meta">Posted by <a href="#">{{ metaArticle.meta.author }}</a> on {{ metaArticle.lastMod }}</p>
+					<p class="post-meta">Posted by <a href="#">{{ metaArticle.author }}</a> on {{ metaArticle.lastMod }}</p>
 				</div>
 				<hr ng-if="!$last" />
 			</div>
@@ -18,18 +27,22 @@
 				<!-- Pager -->
 				<ul class="pager">
 					<li class="previous" ng-if="vm.currentPage.hasPrev()">
-						<a ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index - 1 })">prev</a>
-						<!--<a ng-click="vm.gotoPrevPage()">&larr; Newer Posts</a>-->
+						<a ng-if="vm.isSearch" ui-sref="search({ pageIdx: vm.currentPage.index - 1 })">&larr; prev</a>
+						<a ng-if="!vm.isSearch" ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index - 1 })">&larr; prev</a>
 					</li>	
 					<li class="next" ng-if="vm.currentPage.hasNext()">
-						<a ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index + 1 })">next</a>
-						<!--<a ng-click="vm.gotoNextPage()">Older Posts &rarr;</a>-->
+						<a ng-if="vm.isSearch" ui-sref="search({ pageIdx: vm.currentPage.index + 1 })">next &rarr;</a>
+						<a ng-if="!vm.isSearch" ui-sref="list({ listType: vm.listType, pageIdx: vm.currentPage.index + 1 })">next &rarr;</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div ng-if="vm.currentPage.items.length == 0">
-			<h3>There are no items in this list ;)</h3>
+		<div class="container" ng-if="vm.currentPage.items.length == 0">
+			<div class="margin-top-1em">
+				<div class="jumbotron text-center">
+					<h3>{{ vm.isSearch ? 'The search for "' + vm.searchTerm + '" did not yield any results.' : 'This list appears to be empty.' }}</h3>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

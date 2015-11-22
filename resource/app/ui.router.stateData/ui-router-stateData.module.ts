@@ -14,18 +14,24 @@ module Ui.Router.StateData {
 	export class UiRouterStateData implements Common.IModuleFactory {
 		public createModule(): angular.IModule {
 			return angular.module('ui.router.stateData', ['ui.router'])
-				.run(['$rootScope', '$timeout', '$state',
+				.run(['$rootScope', '$timeout', '$state', '$window', '$location',
 				(
-					$rootScope: angular.IRootScopeService, $timeout: angular.ITimeoutService, $state: angular.ui.IStateService
+					$rootScope: angular.IRootScopeService, $timeout: angular.ITimeoutService, $state: angular.ui.IStateService, $window: angular.IWindowService, $location: angular.ILocationService
 				) => {
+					var locationSearch;
+
 					$rootScope.$on('$stateChangeStart', () => {
 						delete $rootScope['$uiStateData'];
+						//save location.search so we can add it back after transition is done
+						locationSearch = $location.search();
 					});
 					
 					$rootScope.$on('$stateChangeSuccess',
 					(
 						event: angular.IAngularEvent, toState: angular.ui.IState, toParams: Common.IKVStore<any>, fromState: angular.ui.IState, fromParams: Common.IKVStore<any>
 					) => {
+						//restore all query string parameters back to $location.search
+						$location.search(locationSearch);
 						
 						// In this array we will store all states from this one upwards,
 						// and the root state will be the last one in this array. This is
@@ -40,6 +46,8 @@ module Ui.Router.StateData {
 						
 						// clean-out rootScope before re-building
 						$rootScope['$uiStateData'] = {};
+						// set the isMobileView variable
+						$rootScope['$uiStateData']['isMobileView'] = $window.innerWidth < 768;
 						// store the hierarchy for abritrary access
 						$rootScope['$uiStateData']['$hierarchy'] = stateHierarchy.slice(0).reverse();
 						// will get all states that define a title

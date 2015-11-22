@@ -17,7 +17,7 @@ module Blog {
 				'ui.bootstrap',
 				'ui.router.stateData'
 			]).constant('CONFIG', new Common.Constants()
-				.add('ITEMS_PER_PAGE', 1)
+				.add('ITEMS_PER_PAGE', 5)
 				// If this is set to true, articles' html can contain angular
 				// directives and we'll be using bindHtmlCompile instead of the
 				// plain ngBindHtml.

@@ -49,6 +49,7 @@ module Common {
 		copyright?: string;
 		description?: string;
 		keywords?: string;
+		score?: number;
 	}
 	
 	export interface MetaArticle extends Meta {
@@ -136,13 +137,25 @@ module Common {
 	 * different logic or filters.
 	 */
 	export abstract class AListStrategy {
-		constructor(public type: string, public reverse: boolean) { }
+		protected injected: IKVStore<any> = {};
+		
+		public constructor(public type: string, public reverse: boolean) { }
 		
 		/**
 		 * This method supposedly returns an ordered array of meta-articles
 		 * based on the implemented strategy and given parameters.
 		 */
-		itemsList: (source: MetaArticle[]) => MetaArticle[];
+		public itemsList: (source: MetaArticle[]) => MetaArticle[];
+		
+		/**
+		 * This function may be used by a controller to inject parameters such
+		 * as search parameters.
+		 */
+		public inject(key: string, value: any): AListStrategy {
+			this.injected[key] = value;
+			return this;
+		}
+
 		/**
 		 * Static method that returns false by default. When a specific
 		 * list-type is requested, the designated controller will probe

@@ -14,8 +14,8 @@ module Blog.ArticleList {
 			
 			replace: true,
 			
-			controller: 'ArticleListController',
 			controllerAs: 'vm',
+			controller: 'ArticleListController',
 			
 			scope: {
 				listType: '@',

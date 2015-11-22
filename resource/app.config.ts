@@ -107,7 +107,7 @@ module Blog {
 							}),
 							$uiStateData: [() => {
 								return {
-									title: 'Home'
+									title: 'home'
 								};
 							}]
 						}
@@ -172,8 +172,8 @@ module Blog {
 							}
 						},
 						resolve: {
-							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
-								name: 'blogapp.list',
+							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.articleList',
 								files: [
 									'./script/app/articleList/listStrategies.js',
 									'./script/app/articleList/articleList.controller.js',
@@ -183,6 +183,35 @@ module Blog {
 							$uiStateData: ['$stateParams', ($stateParams: angular.ui.IStateParamsService) => {
 								return {
 									title: 'dir:/' + $stateParams['listType']
+								};
+							}]
+						}
+					});
+					
+					$stateProvider.state('search', {
+						reloadOnSearch: false,
+						parent: 'main',
+						url: '/search/{pageIdx:int}',
+						template: '<article-list list-type="search"></article-list>',
+						params: {
+							pageIdx: {
+								value: 0,
+								squash: true
+							}
+						},
+						resolve: {
+							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.articleList',
+								files: [
+									'./script/app/articleList/listStrategies.js',
+									'./script/app/articleList/articleList.controller.js',
+									'./script/app/articleList/articleList.directive.js'
+								]
+							}),
+							$uiStateData: ['$location', ($location: angular.ILocationService) => {
+								var q = $location.search()['q'];
+								return {
+									title: 'search' + (q ? ':' + q : '')
 								};
 							}]
 						}
