@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/content/',
-					src: ['**/*', '!default.html'],
+					src: ['**/*', '!default*', '!*.md', '!*.jst'],
 					dest: 'public/content/'
 				}]
 			},
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/',
-					src: ['**/*.html', '!**/default.html', '!**/app/**/*.html'],
+					src: ['**/*.html', '!**/default*', '!**/app/**/*.html'],
 					dest: 'public/'
 				}, {
 					expand: true,
@@ -148,6 +148,45 @@ module.exports = function(grunt) {
 		},
 		
 		/**
+		 * These tasks watch our readme.md and especially those articles that
+		 * are created using markdown (in the content directory).
+		 */
+		markdown: {
+			content: {
+				options: {
+					template: './resource/content/default-md.template.jst',
+					postCompile: function(src, context) {
+						var $ = cheerio.load(src),
+							metas = $('div#meta meta').toArray().map(function(m) {
+								return $.html(m);
+							}).join('\n');
+						
+						$('div#meta').remove();
+						return metas + '\n\n<article>\n' + $.html().trim() + '\n</article>';
+					}
+				},
+				files: [{
+					expand: true,
+					cwd: './resource/content/',
+					src: ['*.md'],
+					dest: './resource/content/',
+					ext: '.html'
+				}]
+			},
+			
+			readme: {
+				options: {},
+				files: [{
+					expand: true,
+					cwd: './',
+					src: ['readme.md'],
+					dest: './',
+					ext: '.html'
+				}]
+			}
+		},
+		
+		/**
 		 * This tasks checks our good style during development :) It uses
 		 * the parameters defined in tslint.json.
 		 */
@@ -194,6 +233,9 @@ module.exports = function(grunt) {
 			// Tasks to watch
 			all: {
 				tasks: ['http-server', 'watch']
+			},
+			content: {
+				tasks: ['http-server', 'watch:content']
 			}
 		},
 		
@@ -204,7 +246,7 @@ module.exports = function(grunt) {
 		watch: {
 			content: {
 				files: ['./resource/content/**/*', '!./resource/content/content.json'],
-				tasks: ['clean:content', 'make-content', 'copy:content']
+				tasks: ['make-content']
 			},
 			
 			html: {
@@ -217,6 +259,11 @@ module.exports = function(grunt) {
 				tasks: ['newer:less:toCss', 'newer:copy:lessed', 'newer:copy:lessed']
 			},
 			
+			markdown: {
+				files: ['./**/*.md'],
+				tasks: ['newer:markdown']
+			},
+			
 			typescript: {
 				files: ['./resource/**/*.ts'],
 				tasks: ['newer:tslint:app', 'newer:typescript:app', 'newer:copy:js']
@@ -224,7 +271,7 @@ module.exports = function(grunt) {
 		}
 	});
 	
-	grunt.registerTask('make-content', function() {
+	grunt.registerTask('create-content', function() {
 		var contentDir = 'content', rxHtml = /\.html?$/i;
 		
 		var getAutoLastMod = function(path) {
@@ -235,7 +282,15 @@ module.exports = function(grunt) {
 			filter: 'isFile',
 			cwd: './resource/' + contentDir
 		}, '**/*').filter(function(file) {
-			return file !== 'content.json' && file !== 'default.html';
+			var ignore = [
+				'content.json',
+				'default.html',
+				'default-md.html',
+				'default-md.md',
+				'default-md.template.jst'
+			];
+			
+			return ignore.indexOf(file) === -1;
 		}).map(function(file) {
 			var info = {
 				path: contentDir + '/' + file,
@@ -288,17 +343,25 @@ module.exports = function(grunt) {
 		console.log('>> Wrote content.json');
 	});
 	
+	grunt.registerTask('make-content', [
+		'clean',
+		'markdown:content',
+		'create-content',
+		'copy'
+	]);
+	
 	grunt.registerTask('watch-all', [
-		'default',
-		
-		'make-content',
-		
+		'default',		
 		'concurrent:all'
+	]);
+	
+	grunt.registerTask('watch-content', [
+		'concurrent:content'
 	]);
 	
 	grunt.registerTask('default', [
 		'clean',
-		'less', 'tslint', 'typescript', 'make-content',
+		'less', 'tslint', 'typescript', 'markdown', 'create-content',
 		'copy'
 	]);
 };

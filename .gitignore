@@ -13,4 +13,6 @@ resource/app/*/*.js
 resource/style/all.css
 
 resource/content/test*html
-resource/content/*/*.html
+# this is generated from markdown:
+readme.html
+resource/content/default-md.html
