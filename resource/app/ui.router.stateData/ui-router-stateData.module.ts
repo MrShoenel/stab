@@ -18,7 +18,7 @@ module Ui.Router.StateData {
 				(
 					$rootScope: angular.IRootScopeService, $timeout: angular.ITimeoutService, $state: angular.ui.IStateService, $window: angular.IWindowService, $location: angular.ILocationService
 				) => {
-					var locationSearch;
+					var locationSearch = {};
 
 					$rootScope.$on('$stateChangeStart', () => {
 						delete $rootScope['$uiStateData'];
@@ -30,14 +30,23 @@ module Ui.Router.StateData {
 					(
 						event: angular.IAngularEvent, toState: angular.ui.IState, toParams: Common.IKVStore<any>, fromState: angular.ui.IState, fromParams: Common.IKVStore<any>
 					) => {
-						//restore all query string parameters back to $location.search
-						$location.search(locationSearch);
+						// Do some checks on the extended state data, if present
+						if (toState.data instanceof ExtendedStateData) {
+							var esd = <ExtendedStateData>toState.data;
+							
+							// Restore all query string parameters back to $location.search
+							// if the state signalizes that it uses it.
+							if (esd.usesLocationSearch()) {
+								$location.search(locationSearch);
+							}
+						}
 						
 						// In this array we will store all states from this one upwards,
 						// and the root state will be the last one in this array. This is
 						// important as we'll be building up the $uiStateData bottom to top.
 						var stateHierarchy: angular.ui.IResolvedState[] = [];
 						
+						// Build up hierarchy.
 						var state = $state.$current;
 						while (state !== undefined) {
 							stateHierarchy.push(state);
@@ -65,6 +74,51 @@ module Ui.Router.StateData {
 						}
 					})
 				}]);
+		}
+	}
+	
+	/**
+	 * Helper class to encapsulate a state's data (the data-property)
+	 * in a nicer way. The ui-router-stateData module will take certain
+	 * actions if a state's data-property is an instance of this class
+	 * and has certain values.
+	 * The purpose of this class is to tame the <any>-nature of the data-
+	 * property and to bring in some conformity.
+	 */
+	export class ExtendedStateData {
+		private data: Common.IKVStore<any>;
+		
+		public constructor(obj?: Object) {
+			this.data = obj || {};
+		}
+		
+		public set(key: string, value: any): ExtendedStateData {
+			this.data[key] = value;
+			return this;
+		}
+		
+		public get<T>(key: string, defaultIfEmpty?: any): T {
+			if (this.data.hasOwnProperty(key)) {
+				return this.data[key];
+			}
+			
+			return defaultIfEmpty || undefined;
+		}
+		
+		// What follows are shortcut methods and properties
+		private static
+			prop_usesLocationSearch = 'usesLocationSearch';
+		
+		/**
+		 * Getter/setter depending on if an argument was supplied
+		 */
+		public usesLocationSearch(use?: boolean): ExtendedStateData|boolean {
+			if (use === void 0) {
+				// getter
+				return this.get<boolean>(ExtendedStateData.prop_usesLocationSearch, false);
+			}
+			
+			return this.set(ExtendedStateData.prop_usesLocationSearch, use === true);
 		}
 	}
 

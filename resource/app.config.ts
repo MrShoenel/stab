@@ -5,6 +5,7 @@
 /// <reference path="./app.common.ts" />
 /// <reference path="./app/service/content.service.ts" />
 /// <reference path="./app/article/article.controller.ts" />
+/// <reference path="./app/ui.router.stateData/ui-router-stateData.module.ts" />
 
 
 module Blog {
@@ -199,6 +200,9 @@ module Blog {
 								squash: true
 							}
 						},
+						// For this state we supply extended state data
+						data: new Ui.Router.StateData.ExtendedStateData()
+							.usesLocationSearch(true),
 						resolve: {
 							articleList: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.articleList',
