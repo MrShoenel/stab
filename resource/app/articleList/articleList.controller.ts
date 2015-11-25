@@ -59,7 +59,8 @@ module Blog.ArticleList {
 		
 		public search(): void {
 			this.$location.search({ q: this.searchTerm });
-			this.$scope.$root['$uiStateData']['title'] = 'search:' + this.searchTerm;
+			this.$scope.$root['$uiStateData']['title'] = 'search' +
+				(angular.isString(this.searchTerm) && this.searchTerm.length ? ':' + this.searchTerm : '');
 			this.ContentService.getMetaArticles().then(metaArts => {
 				this.currentPage = Common.Page.partitionAndGetFirstPage(
 					this.getStrategy(this.listType, this.sortReverse).itemsList(metaArts), this.itemsPerPage);
