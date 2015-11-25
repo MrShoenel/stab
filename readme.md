@@ -2,7 +2,7 @@
 
 ***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
 
-The current version is ***1.0.2***. Please refer to the [Changelog with milestones](/MrShoenel/stab/wiki/changelog) for details.
+The current version is ***1.1.0***. Please refer to the [Changelog with milestones](/MrShoenel/stab/wiki/changelog) for details.
 
 
 
@@ -48,6 +48,8 @@ In short that means the following:
 * All kinds of lists of articles use a configurable ***pagination***, even the search.
 * Stab supports ***markdown*** through a separate markdown-template (which you may extend of course). Write your articles in Html or markdown.
 	* If using Html, you may as well use ***angular-flavored*** Html with directives, models etc.
+* ***NEW*** in version *1.1.0*:
+	* Fragments: Add custom fragments to your content or template. This feature allows you to add arbitrary content using *Html* **or** *markdown* to your blog. The **new directive** *&lt;app-fragment id=":ID:" /&gt;* accepts an ID and embeds whatever content you desire: (angular-flavored) Html, JavaScript, Css or just plain text! Actually, the *header* and *footer* have been refatored to be fragments now and a very simple *breadcrumb*-fragments has been added!
 	
 
 
@@ -91,4 +93,3 @@ There is a bunch of useful tasks to aid the development or creation of content w
 * **Provide content statically**
 	
 	Because of the hashtag-navigation, we may provide the content using google's recommended escaped-fragment url-scheme. The plan is to create static pages using phantom.js whenever the normal content-generation is going on.
-	
