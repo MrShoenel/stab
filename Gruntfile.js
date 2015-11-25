@@ -168,7 +168,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/content/',
-					src: ['*.md'],
+					src: ['*.md', '!default*md'],
 					dest: './resource/content/',
 					ext: '.html'
 				}]
@@ -272,58 +272,65 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.registerTask('create-content', function() {
-		var contentDir = 'content', rxHtml = /\.html?$/i;
+		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i;
 		
 		var getAutoLastMod = function(path) {
 			return new Date(Date.parse(fs.statSync(path).mtime)).toISOString();
 		};
 		
-		var files = grunt.file.expand({
-			filter: 'isFile',
-			cwd: './resource/' + contentDir
-		}, '**/*').filter(function(file) {
-			var ignore = [
-				'content.json',
-				'default.html',
-				'default-md.html',
-				'default-md.md',
-				'default-md.template.jst'
-			];
-			
-			return ignore.indexOf(file) === -1;
-		}).map(function(file) {
+		var processFile = function(file) {
 			var info = {
 				path: contentDir + '/' + file,
-				lastMod: null,
-				urlName: null,
-				title: null,
-				teaser: null
+				type: null
 			};
 			
-			if (rxHtml.test(file)) {
-				var $ = cheerio.load(grunt.file.read('./resource/' + info.path));
-				
-				$('meta').toArray().forEach(function(htmlMeta) {
-					var metaName = $(htmlMeta).attr('name').toLowerCase(),
-						metaContent = $(htmlMeta).attr('content');
-					
-					if (metaName === 'lastmodified') {
-						if (metaContent === 'auto') {
-							info.lastMod = getAutoLastMod('./resource/' + info.path);
-						} else {
-							info.lastMod = new Date(Date.parse(metaContent)).toISOString()
-						}
-					} else if (metaName === 'urlname') {
-						info.urlName = metaContent;
-					} else if (metaName === 'title') {
-						info.title = metaContent;
-					} else {
-						info[metaName] = metaContent;
-					}
-				});
-				
-				info.teaser = striptags($('article').html()).replace(/\s+/g, ' ').trim();
+			var content = grunt.file.read('./resource/' + info.path),
+				$ = cheerio.load(content);
+			
+			if ($('article').length > 0) {
+				// is article:
+				info.type = 'article';
+				return processArticle(file, content, info);
+			} else if ($('fragment').length > 0) {
+				// is fragment:
+				info.type = 'fragment';
+				return processFragment(file, content, info);
+			} else {
+				throw 'Cannot process content-file: ' + file;
 			}
+		};
+		
+		/**
+		 * Processes the meta-information of an article.
+		 */
+		var processArticle = function(file, content, info) {
+			var $ = cheerio.load(content);
+			
+			info.lastMod = null;
+			info.urlName = null;
+			info.teaser = null;
+			info.title = null;
+			
+			$('meta').toArray().forEach(function(htmlMeta) {
+				var metaName = $(htmlMeta).attr('name').toLowerCase(),
+					metaContent = $(htmlMeta).attr('content');
+				
+				if (metaName === 'lastmodified') {
+					if (metaContent === 'auto') {
+						info.lastMod = getAutoLastMod('./resource/' + info.path);
+					} else {
+						info.lastMod = new Date(Date.parse(metaContent)).toISOString()
+					}
+				} else if (metaName === 'urlname') {
+					info.urlName = metaContent;
+				} else if (metaName === 'title') {
+					info.title = metaContent;
+				} else {
+					info[metaName] = metaContent;
+				}
+			});
+			
+			info.teaser = striptags($('article').html()).replace(/\s+/g, ' ').trim();
 
 			// now check for lastmod, urlname and title:
 			if (!info.lastMod) {
@@ -337,9 +344,63 @@ module.exports = function(grunt) {
 			}
 			
 			return info;
-		});
+		};
 		
-		grunt.file.write('./resource/' + contentDir + '/content.json', JSON.stringify(files));
+		/**
+		 * Reads one fragment and processes its meta-content.
+		 */
+		var processFragment = function(file, content, info) {
+			var $ = cheerio.load(content);
+			
+			info.id = null;
+			info.content = null;
+			info.mime = null;
+			
+			// If we find a fragment-tag with name "embed" (regardless of its value),
+			// we will set the path to null and the content to the fragment's content.
+			$('meta').toArray().forEach(function(frgMeta) {
+				var frgName = $(frgMeta).attr('name').toLowerCase(),
+					frgContent = $(frgMeta).attr('content') || '';
+				
+				if (frgName === 'embed') {
+					info.path = null;
+					info.content = '<fragment>' + $('fragment').html() + '</fragment>';
+				} else {
+					info[frgName] = frgContent;
+				}
+			});
+				
+			if (!info.id) {
+				throw 'Each fragment must have a unique ID.';
+			}
+			
+			return info;
+		};
+		
+		var files = grunt.file.expand({
+			filter: 'isFile',
+			cwd: './resource/' + contentDir
+		}, '**/*').filter(function(file) {
+			var ignore = [
+				'content.json',
+				'default.html',
+				'default-md.html',
+				'default-md.md',
+				'default-md.template.jst',
+				'defaultFragment.html',
+				'defaultFragment-md.html',
+				'defaultFragment-md.md',
+				'defaultFragment-md.template.jst'
+			];
+			
+			return ignore.indexOf(file) === -1 &&
+				rxHtml.test(file) && !rxDefault.test(file);
+		}).map(processFile);
+		
+		grunt.file.write('./resource/' + contentDir + '/content.json', JSON.stringify({
+			metaArticles: files.filter(function(file) { return file.type === 'article'; }),
+			metaFragments: files.filter(function(file) { return file.type === 'fragment'; })
+		}));
 		console.log('>> Wrote content.json');
 	});
 	
