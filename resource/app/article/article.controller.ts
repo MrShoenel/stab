@@ -19,7 +19,7 @@ module Blog.Article {
 		public static inlineAnnotatedConstructor: any[] = ['ContentService', 'CONFIG', ArticleController];
 		
 		public constructor(private ContentService: Blog.Service.ContentService, private Config: Common.Constants) {
-			this.useBindHtmlCompile = Config.get<boolean>('ALLOW_ANGULAR_HTML');
+			this.useBindHtmlCompile = Config.get<boolean>('ALLOW_ANGULAR_HTML', false);
 		}
   }
 

@@ -44,6 +44,16 @@ module Common {
 		fromUrl(url: string): angular.IPromise<string>;
 	}
 	
+	/**
+	 * Dedicated interface that represents the structure of our global content.json.
+	 * It contains meta-articles and meta-fragments and allows us to make extensions
+	 * later if required:
+	 */
+	export interface ContentJSON {
+		metaArticles: MetaArticle[];
+		metaFragments: MetaFragment[];
+	}
+	
 	export interface Meta extends Common.IKVStore<any> {
 		author?: string;
 		copyright?: string;
@@ -182,5 +192,73 @@ module Common {
 	
 	export interface IKVStore<T> {
 		[key:string]: T;
+	}
+	
+	
+	/**
+	 * Describes a fragment's meta information.
+	 */
+	export interface MetaFragment {
+		// Must be unique across all fragments
+		id: string;
+		// The path to load the fragment from. Optional.
+		// If the path is not present we expect the fragment
+		// to be embedded into the content.json.
+		path?: string;
+		// If the path coerces to false, content must be
+		// present because the fragment ought to be embedded
+		// into the content.json. If both coerce to false,
+		// content will be set to an empty string.
+		content?: any;
+		// A hint on how to interpret the fragment. This
+		// should be a valid mime-string. Out of the box,
+		// Html and json work. If not present or unknown,
+		// will be interpreted as text/plain which results
+		// in no processing.
+		mime?: string;
+	}
+	
+	/**
+	 * This class represents a fragment
+	 */
+	export class Fragment {
+		private trusted: any;
+		
+		private static supportedMimeTypesArray: {
+			mime: string, regex: RegExp, sce: string, default?: boolean
+		}[] = [
+			{ mime: 'css', regex: /css/i, sce: 'css' },
+			{ mime: 'html', regex: /(?:html?)|(?:xml)/i, sce: 'html' },
+			{ mime: 'js', regex: /(?:js)|(?:javascript)/i, sce: 'js' },
+			{ mime: 'text', regex: /(?:text)|(?:plain)/i, sce: 'html', default: true }
+		];
+		
+		constructor(private _meta: MetaFragment, private _original: string, private $sce: angular.ISCEService) {
+			// Takes the best match or default if no match for mime:
+			var $sceMethod = Fragment.supportedMimeTypesArray.filter(t => t.regex.test(_meta.mime)).concat(Fragment.supportedMimeTypesArray.filter(t => t.hasOwnProperty('default') && t.default === true))[0].sce;
+			
+			var asJQuery = Array.prototype.slice.call(angular.element(_original), 0);
+			var fragmentElem = asJQuery.filter(element => {
+				return element instanceof HTMLElement &&
+					(<HTMLElement>element).nodeName.toUpperCase() === 'FRAGMENT';
+			})[0];
+			
+			this.trusted = $sce.trustAs($sceMethod, angular.element(fragmentElem).html()); 
+		}
+		
+		public get meta(): MetaFragment {
+			return angular.extend({}, this._meta);
+		}
+		
+		/**
+		 * Getter for the trusted value of the fragment.
+		 */
+		public get trustedValue(): any {
+			return this.trusted;
+		}
+		
+		public static get supportedMimeTypes(): string[] {
+			return Fragment.supportedMimeTypesArray.slice(0).map(t => t.mime);
+		}
 	}
 }

@@ -1,0 +1,16 @@
+<meta name="id" content="breadcrumb" />
+<meta name="mime" content="html" />
+<meta name="embed" />
+
+<fragment>
+	<div class="container" ng-if="$root.$uiStateData.$breadCrumb.length > 0">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<ol class="breadcrumb">
+					<li><a href="#!/">home</a></li>
+					<li ng-repeat-start="bc in $root.$uiStateData.$breadCrumb" ng-repeat-end><a ui-sref="{{ bc.state.self.name + '(' + (bc.state.locals.globals.$stateParams | json) + ')' }}">{{ bc.title }}</a></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</fragment>

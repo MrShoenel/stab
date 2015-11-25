@@ -1,18 +1,18 @@
 {
-  "name": "mrshoenel.github.io",
-  "description": "This is my blog.",
+  "name": "stab",
+  "description": "stab is the static-tiny-angular-blog",
   "main": "index.html",
   "authors": [
     "Sebastian Hönel <development@hoenel.net>"
   ],
   "license": "ISC",
   "keywords": [
-    "blog"
+    "blog", "angular", "static", "github pages"
   ],
   "moduleType": [
     "amd"
   ],
-  "homepage": "https://mrshoenel.github.io",
+  "homepage": "https://github.com/MrShoenel/stab",
   "private": true,
   "ignore": [
     "**/.*",

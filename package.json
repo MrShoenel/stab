@@ -1,24 +1,24 @@
 {
-  "name": "mrshoenel.github.io",
+  "name": "stab",
   "version": "1.0.2",
-  "description": "",
+  "description": "stab is the static-tiny-angular-blog",
   "main": "index.html",
   "scripts": {
     "postinstall": "parallelshell \"bower install\" \"tsd install --save\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrShoenel/mrshoenel.github.io.git"
+    "url": "git+https://github.com/MrShoenel/stab.git"
   },
   "keywords": [
-    "blog"
+    "blog", "angular", "static", "github pages"
   ],
   "author": "Sebastian Hönel <development@hoenel.net>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MrShoenel/mrshoenel.github.io/issues"
+    "url": "https://github.com/MrShoenel/stab/issues"
   },
-  "homepage": "https://github.com/MrShoenel/mrshoenel.github.io#readme",
+  "homepage": "https://github.com/MrShoenel/stab#readme",
   "devDependencies": {
     "bower": "^1.6.5",
     "cheerio": "^0.19.0",

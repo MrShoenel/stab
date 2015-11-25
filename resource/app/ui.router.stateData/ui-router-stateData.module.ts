@@ -68,8 +68,11 @@ module Ui.Router.StateData {
 
 							angular.extend($rootScope['$uiStateData'], currentData);
 							
-							if (currentData.hasOwnProperty('title')) {
-								$rootScope['$uiStateData']['$breadCrumb'].push(currentData['title']);
+							if (currentData.hasOwnProperty('breadCrumb')) {
+								$rootScope['$uiStateData']['$breadCrumb'].push({
+									title: currentData['breadCrumb'],
+									state: current
+								});
 							}
 						}
 					})

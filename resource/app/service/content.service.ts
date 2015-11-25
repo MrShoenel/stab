@@ -8,11 +8,13 @@ module Blog.Service {
 	 */
 	export class ContentService {
 		
-		private metaArticles: Common.MetaArticle[] = null;
+		private contentJson: Common.ContentJSON = null;
 		
 		private metaCache: angular.ICacheObject;
 		
 		private cache: angular.ICacheObject;
+		
+		private fragmentCache: angular.ICacheObject;
 		
 		/**
 		 * Used as dependecy-injected factory.
@@ -22,6 +24,7 @@ module Blog.Service {
 		public constructor(private $http: angular.IHttpService, private $q: angular.IQService, private $cacheFactoryService: angular.ICacheFactoryService, private $sce: angular.ISCEService) {
 			this.metaCache = $cacheFactoryService('contentMeta');
 			this.cache = $cacheFactoryService('content');
+			this.fragmentCache = $cacheFactoryService('fragments');
 		};
 		
 		/**
@@ -29,19 +32,19 @@ module Blog.Service {
 		 * the content.json which gives us information about all the
 		 * available content.
 		 */
-		public initializeMetaContent(): angular.IPromise<Common.MetaArticle[]> {
-			return this.$http.get<Common.MetaArticle[]>('content/content.json').then(metaArts => {
-				if (this.metaArticles !== null) {
-					return this.$q.when(this.metaArticles.slice(0));
-				}
-
-				this.metaArticles = metaArts.data;
+		public initializeMetaContent(): angular.IPromise<Common.ContentJSON> {
+			// If there were two or more calls to this function:
+			if (this.contentJson !== null) {
+				return this.$q.when(angular.extend({}, this.contentJson));
+			}
+			return this.$http.get<Common.ContentJSON>('content/content.json').then(contentJson => {
+				this.contentJson = contentJson.data;
 				
-				for (let i = 0; i < metaArts.data.length; i++) {
-					this.metaCache.put(metaArts.data[i].urlName, metaArts.data[i]);
+				for (let i = 0; i < contentJson.data.metaArticles.length; i++) {
+					this.metaCache.put(contentJson.data.metaArticles[i].urlName, contentJson.data.metaArticles[i]);
 				}
 				
-				return metaArts.data;
+				return contentJson.data;
 			});
 		};
 		
@@ -80,13 +83,55 @@ module Blog.Service {
 				(filter instanceof Function ? filter : (dummy: Common.MetaArticle) => true);
 			var dateMethod = Date.prototype['toGMTString'] || Date.prototype.toLocaleString || Date.prototype.toString;
 			
-			return this.metaArticles === null ? this.initializeMetaContent().then(() => {
-				return this.metaArticles.slice(0).filter(postFilter).map(metaArt => {
+			return this.initializeMetaContent().then(() => {
+				return this.contentJson.metaArticles.slice(0).filter(postFilter).map(metaArt => {
 					metaArt.lastMod = dateMethod.call(new Date(Date.parse(metaArt.lastMod)));
 					return metaArt;
 				});
-			}) : this.$q.when(this.metaArticles.slice(0).filter(postFilter));
-		}
+			});
+		};
+		
+		/**
+		 * Returns all fragments. There are no parameters to this function so we
+		 * can implement it as property. Ensures that all returned fragments
+		 * have been cached properly.
+		 */
+		public get fragments(): angular.IPromise<Common.MetaFragment[]> {
+			return this.initializeMetaContent().then(contentJson => {
+				return this.$q.all(contentJson.metaFragments.map(fragment => {
+					return this.getFragmentByID(fragment.id);
+				}));
+			});
+		};
+		
+		/**
+		 * Returns a single fragment by ID. Fragments will be put to the local
+		 * cache before they are returned. Subsequent requests to the same ID
+		 * will returned the cached fragment.
+		 */
+		public getFragmentByID(id: string): angular.IPromise<Common.Fragment> {
+			return this.initializeMetaContent().then(contentJson => {
+				var metaFragment = contentJson.metaFragments.filter(frg => frg.id === id)[0],
+					fragment = this.fragmentCache.get<Common.Fragment>(metaFragment.id);
+				
+				if (fragment !== undefined) {
+					return this.$q.when(fragment);
+				}
+				
+				if (!angular.isString(metaFragment.path) || metaFragment.path.length === 0) {
+					fragment = new Common.Fragment(metaFragment, (metaFragment.content || '').toString(), this.$sce);
+					this.fragmentCache.put(metaFragment.id, fragment);
+					return this.$q.when(fragment);
+				}
+				
+				// Ok, we have to load it as the fragment was not embedded.
+				return this.$http.get<string>(metaFragment.path).then(mfrgString => {
+					fragment = new Common.Fragment(metaFragment, (mfrgString.data + '').toString(), this.$sce);
+					this.fragmentCache.put(metaFragment.id, fragment);
+					return fragment;
+				});
+			});
+		};
 	};
 	
 	angular.module('blogapp').service('ContentService', ContentService.inlineAnnotatedConstructor);
