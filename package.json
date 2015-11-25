@@ -1,6 +1,6 @@
 {
   "name": "stab",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "stab is the static-tiny-angular-blog",
   "main": "index.html",
   "scripts": {
