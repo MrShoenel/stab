@@ -60,11 +60,14 @@ module Blog {
 							navigation: {
 								template: '<app-navigation></app-navigation>'
 							},
+							breadcrumb: {
+								template: '<app-fragment id="breadcrumb"></app-fragment>'
+							},
 							header: {
-								template: '<app-header></app-header>'
+								template: '<app-fragment id="header"></app-fragment>'
 							},
 							footer: {
-								template: '<app-footer></app-footer>'
+								template: '<app-fragment id="footer"></app-fragment>'
 							},
 							// absolute targets the default (nameless) view
 							"@": {
@@ -72,12 +75,20 @@ module Blog {
 							}
 						},
 						resolve: {
+							directives: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
+								name: 'blogapp.directive',
+								serie: true,
+								files: [
+									'./script/app/fragment/fragment.controller.js',
+									'./script/app/fragment/fragment.directive.js'
+								]
+							}),
 							navigation: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.navigation',
+								serie: true,
 								files: [
-									'./script/app/navigation/navigation.directive.js',
-									'./script/app/header/header.directive.js',
-									'./script/app/footer/footer.directive.js'
+									'./script/app/article/htmlCompile.directive.js',
+									'./script/app/navigation/navigation.directive.js'
 								]
 							}),
 							services: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => $ocLazyLoad.load({
@@ -116,7 +127,7 @@ module Blog {
 
 					$stateProvider.state('read', {
 						parent: 'main',
-						url: '/read/{urlName:.*}',
+						url: '/read/{articleUrlName:.*}',
 						controller: 'ArticleController',
 						controllerAs: 'vm',
 						templateProvider: ['$templateFactory', ($templateFactory: Common.$TemplateFactory) => {
@@ -139,13 +150,14 @@ module Blog {
 							}),
 							// 'services' is from the parent's resolve
 							currentArticle: ['$stateParams', 'ContentService', 'services', ($stateParams: angular.ui.IStateParamsService, contentService: Service.ContentService, services: any) => {
-								return contentService.articleByUrlName($stateParams['urlName']);
+								return contentService.articleByUrlName($stateParams['articleUrlName']);
 							}],
 							$uiStateData: ['currentArticle', (currentArticle: Common.Article) => {
 								var am = currentArticle.meta, ho = (prop: string) => am.hasOwnProperty(prop),
 									stateData = {
 										article: currentArticle,
 										title: currentArticle.meta.title,
+										breadCrumb: currentArticle.meta.title,
 										meta: [
 											['last-modified', new Date(Date.parse(am.lastMod))['toGMTString']()]
 										]
@@ -183,7 +195,8 @@ module Blog {
 							}),
 							$uiStateData: ['$stateParams', ($stateParams: angular.ui.IStateParamsService) => {
 								return {
-									title: 'dir:/' + $stateParams['listType']
+									title: 'dir:/' + $stateParams['listType'],
+									breadCrumb: 'dir:/' + $stateParams['listType']
 								};
 							}]
 						}
@@ -215,7 +228,8 @@ module Blog {
 							$uiStateData: ['$location', ($location: angular.ILocationService) => {
 								var q = $location.search()['q'];
 								return {
-									title: 'search' + (q ? ':' + q : '')
+									title: 'search' + (q ? ':' + q : ''),
+									breadCrumb: 'search'
 								};
 							}]
 						}
