@@ -1,6 +1,10 @@
 #stab
 
-***stab*** stands for **S**tatic **T**idy **A**ngular **B**log
+***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
+
+The current version is ***1.1.0***. Please refer to the [Changelog with milestones](/MrShoenel/stab/wiki/changelog) for details.
+
+
 
 ---
 
@@ -44,6 +48,8 @@ In short that means the following:
 * All kinds of lists of articles use a configurable ***pagination***, even the search.
 * Stab supports ***markdown*** through a separate markdown-template (which you may extend of course). Write your articles in Html or markdown.
 	* If using Html, you may as well use ***angular-flavored*** Html with directives, models etc.
+* ***NEW*** in version *1.1.0*:
+	* Fragments: Add custom fragments to your content or template. This feature allows you to add arbitrary content using *Html* **or** *markdown* to your blog. The **new directive** *&lt;app-fragment id=":ID:" /&gt;* accepts an ID and embeds whatever content you desire: (angular-flavored) Html, JavaScript, Css or just plain text! Actually, the *header* and *footer* have been refatored to be fragments now and a very simple *breadcrumb*-fragments has been added!
 	
 
 
@@ -76,6 +82,7 @@ There is a bunch of useful tasks to aid the development or creation of content w
 | ___make-content___ | Does what it says: It builds all your articles from the content-directory. Creates the *content.json* which is picked up by the frontend. | - | - | - |
 | ___watch-content___ | Watches for changes in the content-directory (add/remove/change etc.) and re-builds your content whenever necessary. Also, it comes with an ***http-server*** in the background that serves ***stab*** from port 80 so you can immediately review your content. | ___--port=&lt;int&gt;___ | Override the default port (80) where you can access the current build. | This is the most convenient task for when authoring content. |
 | ___watch-all___ | Used during development. Employs concurrent watches on all resources and rebuilds them if necessary. Also copies over new files if required. Also watches content. | ___--port=&lt;int&gt;___ | *same as above* |The watch task is ideal during development as it keeps track of files and takes necessary actions if they change.|
+| ___exec:changelog___ | Creates a nice, markdown-flavored changelog from all commits. | - | - | Is also run as part of the default-task. |
 
 ---
 
@@ -86,4 +93,3 @@ There is a bunch of useful tasks to aid the development or creation of content w
 * **Provide content statically**
 	
 	Because of the hashtag-navigation, we may provide the content using google's recommended escaped-fragment url-scheme. The plan is to create static pages using phantom.js whenever the normal content-generation is going on.
-	
