@@ -1,6 +1,6 @@
-<div id="meta">
-	<!-- In the markdown template we wrap our meta-tags in this
+<!-- In the markdown template we wrap our meta-tags in this
 		div so they can be cleanly separated from the actual content. -->
+<div id="meta">
 	<!--#### Non-optional (required) tags -->
 	<!--
 		Date.parse() compatible date or 'auto' if you want to have
