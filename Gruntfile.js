@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 			changelog: {
 				stdout: false,
 				stderr: false,
-				command: 'git -C ' + process.cwd() + ' log --pretty=format:"([`%h`](https://github.com/MrShoenel/stab/commit/%H)) %s" --graph',
+				command: 'git -C ' + process.cwd() + ' log --pretty=format:"([`%h`](https://github.com/MrShoenel/stab/commit/%H)) %s"',
 				callback: function(error, stdout, stderr) {
 					if (error) {
 						console.error(error);
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 					var lines = stdout.split('\n').filter(function(line) {
 						return line.trim().length > 0;
 					}).map(function(line) {
-						line = line.substr(2).trim(); // remove '* '
+						line = line.trim();
 						return '* ' + (mileStoneMatch.test(line) ? '**' + line + '**' : line);
 					});
 					

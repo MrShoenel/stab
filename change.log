@@ -1,3 +1,13 @@
+* **([`5a1fd2f`](https://github.com/MrShoenel/stab/commit/5a1fd2f97261062d42f8638e5bce6cdb162d1d94)) Upgrade to version 1.1.0 after merging new feature 'fragments'**
+* ([`22e0c70`](https://github.com/MrShoenel/stab/commit/22e0c704961656df066efcfafb9713ec5cdbc3fc)) Merge branch 'feature/fragments' into develop
+* ([`4a94d1f`](https://github.com/MrShoenel/stab/commit/4a94d1f979c619cccbb53b8d89ad6d7f490e9f61)) Updated bower.json and package.json as they were still pointing to my former blog
+* ([`ec4b17c`](https://github.com/MrShoenel/stab/commit/ec4b17cd461580f93cfa4df164d841e8da4655b9)) Updated .gitignore to ignore test/dummy content
+* ([`8d9a76b`](https://github.com/MrShoenel/stab/commit/8d9a76b60ca534e2811192cfce331a3a29bf4d7a)) Cosmetic and tiny fixes to default-parameters, breadcrumb-related logic and css
+* ([`f4831d8`](https://github.com/MrShoenel/stab/commit/f4831d81c4bd96b5ec2a0262bcbf4d0bb216f5c1)) Moved the htmlCompileDirective to the blogapp-module and fixed it to prevent $digest()-recursions
+* ([`f0758ae`](https://github.com/MrShoenel/stab/commit/f0758ae910fc48f9c62d4447aaa8a1f02f8edf5f)) Added default fragments and templates for html and markdown
+* ([`83d8fe9`](https://github.com/MrShoenel/stab/commit/83d8fe94cefaa88a62a23db2b47b54dd0b5e1927)) Refactored the standard elements such as header and footer into fragments and created a breadcrumb fragment
+* ([`e18c17c`](https://github.com/MrShoenel/stab/commit/e18c17c6304fca33221a4df6fca37456493b5bd4)) Re-structured the content.json, the generation through Grunt of it and its angular-service
+* ([`c7fd6d2`](https://github.com/MrShoenel/stab/commit/c7fd6d200dee6f5e5f0373ba6a394c6336971eee)) Added the possibility to generate changelogs based on the git commit history
 * **([`2157361`](https://github.com/MrShoenel/stab/commit/2157361d0ece14a9c14841649ebd6c056fd0bd39)) Introduce concept of extended state data to maintain state-params and location search and updated to 1.0.2**
 * ([`a143e97`](https://github.com/MrShoenel/stab/commit/a143e97a8745cbbc62a013ee1fc2ca52f05f625e)) Fix potential bug when injection is empty and do cosmetic changes to search results
 * **([`119b7ad`](https://github.com/MrShoenel/stab/commit/119b7adb4f5e09ecf189d4b170fde79e8d8776e4)) Updated stab to v1.0.1 and made some cosmetical fixes**
