@@ -80,6 +80,7 @@ There is a bunch of useful tasks to aid the development or creation of content w
 | ___make-content___ | Does what it says: It builds all your articles from the content-directory. Creates the *content.json* which is picked up by the frontend. | - | - | - |
 | ___watch-content___ | Watches for changes in the content-directory (add/remove/change etc.) and re-builds your content whenever necessary. Also, it comes with an ***http-server*** in the background that serves ***stab*** from port 80 so you can immediately review your content. | ___--port=&lt;int&gt;___ | Override the default port (80) where you can access the current build. | This is the most convenient task for when authoring content. |
 | ___watch-all___ | Used during development. Employs concurrent watches on all resources and rebuilds them if necessary. Also copies over new files if required. Also watches content. | ___--port=&lt;int&gt;___ | *same as above* |The watch task is ideal during development as it keeps track of files and takes necessary actions if they change.|
+| ___exec:changelog___ | Creates a nice, markdown-flavored changelog from all commits. | - | - | Is also run as part of the default-task. |
 
 ---
 
