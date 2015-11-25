@@ -16,3 +16,6 @@ resource/content/test*html
 # this is generated from markdown:
 readme.html
 resource/content/default-md.html
+resource/content/defaultFragment-md.html
+# ignore dummy/test content
+resource/content/__test*
