@@ -1,3 +1,4 @@
+* **([`a52d8c7`](https://github.com/MrShoenel/stab/commit/a52d8c7a692c60c498b497c52ab803dfdd59efcc)) Update stab to version 1.1.1 after fixing the fragments' scoping**
 * ([`134ce4c`](https://github.com/MrShoenel/stab/commit/134ce4c94a4d6467d4c99849fccbc6245370cd1f)) Update the changelog after fixes to the fragments
 * ([`5cc45ed`](https://github.com/MrShoenel/stab/commit/5cc45edea612d7ceb8e4a940c7cff5fb36f2abbc)) Updated the footer- and breadcrumb standard-fragments to not use $root anymore
 * ([`506ef51`](https://github.com/MrShoenel/stab/commit/506ef51f940907701b4666700c9a3177f1912273)) Updated the Fragment-directive to always bind to the $rootScope
