@@ -59,7 +59,7 @@ module Blog.ArticleList {
 			var searchParam = <string>this.injected['locationSearch'];
 			
 			if (searchParam === undefined) {
-				return source.slice(0);
+				return [];
 			}
 			searchParam = searchParam.toLowerCase();
 			
