@@ -1,3 +1,10 @@
+* **([`2f644c5`](https://github.com/MrShoenel/stab/commit/2f644c502734de2dc5528aae9bf08f673e35ebb0)) Fixed a tiny error with the search and its strategy and changed the version to 1.2.2**
+* ([`72036b9`](https://github.com/MrShoenel/stab/commit/72036b953e2a1f2fdb2b406659e3938ba5a8958f)) Merged the new feature 'optimize' into develop
+* ([`1a84375`](https://github.com/MrShoenel/stab/commit/1a84375dd5ebf42190e8634c7b84a85c51e1a887)) Refactored the index.html to use the concatenated libs.css
+* ([`0fd52ed`](https://github.com/MrShoenel/stab/commit/0fd52ed0b6ec3fe9856b4f2ae2820a1812513398)) Updated the readme and added a description for the new --optimize option
+* ([`b84f38f`](https://github.com/MrShoenel/stab/commit/b84f38f27d9e187841c591abc53128d5cc186a96)) Added dependencies to contrib-concat, contrib-uglify, htmlclean and ng-annotate
+* ([`ad089ff`](https://github.com/MrShoenel/stab/commit/ad089ff571797ed92aa57fea839eb6120722f52d)) Added optimization-tasks to the Gruntfile
+* ([`5cb8247`](https://github.com/MrShoenel/stab/commit/5cb824715436270febcb40bc521f989a58607a9c)) Update changelog and readme to fix two tiny errors
 * **([`a52d8c7`](https://github.com/MrShoenel/stab/commit/a52d8c7a692c60c498b497c52ab803dfdd59efcc)) Update stab to version 1.1.1 after fixing the fragments' scoping**
 * ([`134ce4c`](https://github.com/MrShoenel/stab/commit/134ce4c94a4d6467d4c99849fccbc6245370cd1f)) Update the changelog after fixes to the fragments
 * ([`5cc45ed`](https://github.com/MrShoenel/stab/commit/5cc45edea612d7ceb8e4a940c7cff5fb36f2abbc)) Updated the footer- and breadcrumb standard-fragments to not use $root anymore
