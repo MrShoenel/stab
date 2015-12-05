@@ -27,8 +27,23 @@ module.exports = function(grunt) {
 		clean: {
 			content: ['./public/content/*'],
 			css: ['./public/style/*'],
+			css_libs: ['./public/style/*.min.css'],
 			html: ['./public/**/*.html'],
 			js: ['./public/script/*']
+		},
+		
+		/**
+		 * This task we're using to concatenate specific file
+		 * types so we don't have to load too many files.
+		 */
+		concat: {
+			css: {
+				options: {
+					separator: '\n;\n'
+				},
+				src: ['./public/style/**/*.min.css', '!./public/style/libs.css'],
+				dest: './public/style/libs.css'
+			}
 		},
 
 		/**
@@ -149,8 +164,22 @@ module.exports = function(grunt) {
 		},
 		
 		/**
-		 * This task is a simple HTTP server. Override the default port 8080 by
-		 * specifying an alternative with "--port=<port>".
+		 * This task we use to compress the templates used by stab.
+		 * This task is only used when --optimize is present.
+		 */
+		htmlclean: {
+			options: { },
+			templates: {
+				expand: true,
+				cwd: './public/script/app/',
+				src: '**/*.html',
+				dest: './public/script/app/'
+			}
+		},
+
+		/**
+		 * This task is a simple HTTP server. Override the default port
+		 * 8080 by specifying an alternative with "--port=<port>".
 		 */
 		'http-server': {
 			default: {
@@ -217,6 +246,22 @@ module.exports = function(grunt) {
 		},
 		
 		/**
+		 * This task is necessary because we the uglifier would break our code
+		 * where it lacks proper ngAnnotatedConstructor-functions.
+		 */
+		ngAnnotate: {
+			all: {
+				options: {
+					singleQuotes: true
+				},
+				files: [{
+					expand: true,
+					src: ['./public/**/*.js', '!public/**/*min.js']
+				}],
+			}
+		},
+		
+		/**
 		 * This tasks checks our good style during development :) It uses
 		 * the parameters defined in tslint.json.
 		 */
@@ -244,6 +289,18 @@ module.exports = function(grunt) {
 					sourceMap: true,
 					declaration: false // won't create *.d.ts files
 				}
+			}
+		},
+		
+		/**
+		 * Used as minifer. We minify each file and do not concatenate
+		 * them, because we want to preserve lazy-loading with ocLazyLoad.
+		 */
+		uglify: {
+			all: {
+				mangle: true,
+				mangleProperties: true,
+				files: grunt.file.expandMapping(['./public/**/*.js', '!public/**/*min.js'], './')
 			}
 		},
 
@@ -286,7 +343,7 @@ module.exports = function(grunt) {
 			
 			less: {
 				files: ['./resource/style/*.less'],
-				tasks: ['newer:less:toCss', 'newer:copy:lessed', 'newer:copy:lessed']
+				tasks: ['newer:less:toCss', 'newer:copy:lessed', 'newer:copy:lessed', 'concat:css']
 			},
 			
 			markdown: {
@@ -450,10 +507,28 @@ module.exports = function(grunt) {
 		'concurrent:content'
 	]);
 	
-	grunt.registerTask('default', [
-		'clean',
-		'less', 'tslint', 'typescript', 'markdown', 'create-content',
-		'copy',
-		'exec:changelog'
+	grunt.registerTask('optimize', [
+		// Template-html:
+		'htmlclean:templates',
+		// JavaScript:
+		'ngAnnotate', 'uglify',
+		// Css:
+		'concat:css', 'clean:css_libs'
 	]);
+	
+	grunt.registerTask('default', (function() {
+		var tasks = [
+			'clean',
+			'less', 'tslint', 'typescript', 'markdown', 'create-content',
+			'copy',
+			'concat:css',
+			'exec:changelog'
+		];
+		
+		if (grunt.option('optimize')) {
+			tasks.splice(tasks.length - 1, 0, 'optimize');
+		}
+		
+		return tasks;
+	})());
 };
