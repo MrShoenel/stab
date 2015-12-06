@@ -498,7 +498,7 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.registerTask('make-content', [
-		'clean',
+		'clean:content',
 		'markdown:content',
 		'create-content',
 		'copy'
