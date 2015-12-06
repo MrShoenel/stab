@@ -27,3 +27,37 @@ ol.breadcrumb {
     color: #0085a1 !important;
   }
 }
+
+
+/* [ANIMATIONS] taken mainly from https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-animate-ui-view-with-ng-animate */
+body {
+  overflow-x: hidden;
+}
+[ui-view] {
+  &.ng-enter, &.ng-leave {
+    left: 0;
+    right: 0;
+    transition:all .35s ease-in;
+  }
+  
+  &.ng-enter {
+    opacity: 0;
+    transform:scale3d(0.35, 0.35, 0.35);
+  }
+  
+  &.ng-enter-active {
+    opacity: 1;
+    transform:scale3d(1, 1, 1);
+  }
+  
+  &.ng-leave {
+    opacity: 1;
+    transform:translate3d(0, 0, 0);
+  }
+  
+  &.ng-leave-active {
+    opacity: 0;
+    transform:translate3d(100px, 0, 0);
+  }
+}
+/* /[ANIMATIONS] */
