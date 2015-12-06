@@ -1,3 +1,9 @@
+* **([`900f68d`](https://github.com/MrShoenel/stab/commit/900f68d699d7f0c1d70d8068684c083cdf1645f5)) Upgraded version of stab to 1.3.2 now that it comes with basic animations**
+* ([`9a7368c`](https://github.com/MrShoenel/stab/commit/9a7368c3bd9f15ef110a64d4ae7fb47f9e018526)) Change description of planned feature 'Provide content statically' to [won't do] in readme
+* ([`70d1892`](https://github.com/MrShoenel/stab/commit/70d18925e374ba374eae675d5f179a1421b9d361)) Added basic animation-styles to our main.less file
+* ([`60189c8`](https://github.com/MrShoenel/stab/commit/60189c85086bc62825bca292e1adb617c7b0f9a3)) Included ngAnimate into the application's runtime dependencies
+* ([`c6f432b`](https://github.com/MrShoenel/stab/commit/c6f432b769ff8e0c51aed35c035be00d8525fffa)) Updated grunt-contrib-less and bower and added less-plugin-autoprefix
+* **([`087fb45`](https://github.com/MrShoenel/stab/commit/087fb45f60fd84e8f45bd3b8c7e54186eaf764fd)) Newest changelog for 1.2.2**
 * **([`2f644c5`](https://github.com/MrShoenel/stab/commit/2f644c502734de2dc5528aae9bf08f673e35ebb0)) Fixed a tiny error with the search and its strategy and changed the version to 1.2.2**
 * ([`72036b9`](https://github.com/MrShoenel/stab/commit/72036b953e2a1f2fdb2b406659e3938ba5a8958f)) Merged the new feature 'optimize' into develop
 * ([`1a84375`](https://github.com/MrShoenel/stab/commit/1a84375dd5ebf42190e8634c7b84a85c51e1a887)) Refactored the index.html to use the concatenated libs.css
