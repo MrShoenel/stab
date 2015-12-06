@@ -90,6 +90,8 @@ There is a bunch of useful tasks to aid the development or creation of content w
 * **Sitemap-generation.**
 	
 	Since ***stab*** uses hashtag-navigation, we may increase the visibility of our content by creating sitemaps of the available content.
-* **Provide content statically**
+* **Provide content statically** **<span style="color:red">[won't do]</span>**
 	
-	Because of the hashtag-navigation, we may provide the content using google's recommended escaped-fragment url-scheme. The plan is to create static pages using phantom.js whenever the normal content-generation is going on.
+	~~Because of the hashtag-navigation, we may provide the content using google's recommended escaped-fragment url-scheme. The plan is to create static pages using phantom.js whenever the normal content-generation is going on.~~
+	
+	As of **1.3.2** this feature is no longer pursued. Google can [handle/parse](http://googlewebmastercentral.blogspot.se/2014/05/understanding-web-pages-better.html) *SPAs*. Numerous *phantomjs*-based modules exist to do that job if you're still interested. Generating sitemaps may be an unneeded feature now as well.
