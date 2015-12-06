@@ -15,7 +15,8 @@ module Blog {
 				'ui.router',
 				'oc.lazyLoad',
 				'ui.bootstrap',
-				'ui.router.stateData'
+				'ui.router.stateData',
+				'ngAnimate'
 			]).constant('CONFIG', new Common.Constants()
 				.add('ITEMS_PER_PAGE', 5)
 				// If this is set to true, articles' html can contain angular

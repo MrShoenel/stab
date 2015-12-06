@@ -8,6 +8,7 @@ requirejs.config({
 		'app': 'app.module',
 		'angular': 'lib/angular.min',
 		'angular-ui-router': 'lib/angular-ui-router.min',
+		'angular-animate': 'lib/angular-animate.min',
 		'ocLazyLoad': 'lib/oclazyload.require.min',
 		'ui-bootstrap': 'lib/ui-bootstrap.min',
 		'ui-bootstrap-tpls': 'lib/ui-bootstrap-tpls.min',
@@ -17,8 +18,9 @@ requirejs.config({
 	},
 	
 	shim: {
-		'app': ['angular', 'angular-ui-router', 'ocLazyLoad', 'ui-bootstrap', 'ui-bootstrap-tpls', 'ui-router-stateData', 'config', 'common'],
+		'app': ['angular', 'angular-ui-router', 'angular-animate', 'ocLazyLoad', 'ui-bootstrap', 'ui-bootstrap-tpls', 'ui-router-stateData', 'config', 'common'],
 		'angular-ui-router': ['angular'],
+		'angular-animate': ['angular'],
 		'ocLazyLoad': ['angular'],
 		'ui-bootstrap': ['angular'],
 		'ui-bootstrap-tpls': ['ui-bootstrap'],
