@@ -130,6 +130,9 @@ module.exports = function(grunt) {
 				}, {
 					src: './resource/bower/bootstrap-css-only/css/bootstrap-theme.min.css',
 					dest: './public/style/bootstrap-theme.min.css'
+				}, {
+					src: './resource/bower/angular-animate/angular-animate.min.js',
+					dest: './public/script/lib/angular-animate.min.js'
 				}]
 			}
 		},
@@ -196,7 +199,10 @@ module.exports = function(grunt) {
 		less: {
 			toCss: {
 				options: {
-					compress: true
+					compress: true,
+					plugins: [
+						new (require('less-plugin-autoprefix'))({browsers : [ "last 2 versions" ]})
+					]
 				},
 				files: {
 					// add file <=> file relation or have multiple files less'ed
