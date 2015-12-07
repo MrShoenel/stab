@@ -1,3 +1,9 @@
+* **([`48a8405`](https://github.com/MrShoenel/stab/commit/48a8405ab91f4cbf0307d03208ede6b909131c9b)) Upgrade to v1.4.2 after adding feature 'MyDeps'; updated the readme as well**
+* ([`72c78cd`](https://github.com/MrShoenel/stab/commit/72c78cd42c8356ae00e2545220e33994e9965080)) Add two examples for what JS/CSS 'mydeps'
+* ([`85d1c2b`](https://github.com/MrShoenel/stab/commit/85d1c2bfc41b86e3ff2f470fc2a1c703754328c1)) Updated the ContentJSON interface, the app-configuration and the service to load 'mydeps' using $ocLazyLoad
+* ([`2cd4c49`](https://github.com/MrShoenel/stab/commit/2cd4c49b2a8218f8c8f780f86fdb4c8eab09d978)) Added/modified Grunt-tasks so we can process 'mydeps'
+* ([`b6ef112`](https://github.com/MrShoenel/stab/commit/b6ef112aec5499dbbbc68c3109dfa616a5e22143)) Tiny fix that prevents cleaning everything when just the content needs to be cleaned
+* **([`fd996fa`](https://github.com/MrShoenel/stab/commit/fd996fad8eae27f30514dc88257512e3ca5ff830)) Newest changelog for v1.3.2 which we will tag for release**
 * **([`900f68d`](https://github.com/MrShoenel/stab/commit/900f68d699d7f0c1d70d8068684c083cdf1645f5)) Upgraded version of stab to 1.3.2 now that it comes with basic animations**
 * ([`9a7368c`](https://github.com/MrShoenel/stab/commit/9a7368c3bd9f15ef110a64d4ae7fb47f9e018526)) Change description of planned feature 'Provide content statically' to [won't do] in readme
 * ([`70d1892`](https://github.com/MrShoenel/stab/commit/70d18925e374ba374eae675d5f179a1421b9d361)) Added basic animation-styles to our main.less file
