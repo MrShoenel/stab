@@ -147,6 +147,7 @@ module Blog {
 						resolve: {
 							articleModule: ($ocLazyLoad: oc.ILazyLoad) => $ocLazyLoad.load({
 								name: 'blogapp.article',
+								serie: true,
 								files: [
 										'./script/app/article/article.module.js',
 										'./script/app/article/article.controller.js',
