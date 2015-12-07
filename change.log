@@ -1,3 +1,4 @@
+* **([`1c19874`](https://github.com/MrShoenel/stab/commit/1c1987439aaacf3b2eb8f806df26e6e2fac5401a)) Updated stab to v1.4.3 after having made two small fixes on the wrong branch ;)**
 * ([`3221e65`](https://github.com/MrShoenel/stab/commit/3221e6593cfafaacfb08d29a4548da8808ad9748)) Added processing of content in sub-directories and implemented a simple teaser-algorithm
 * ([`622115b`](https://github.com/MrShoenel/stab/commit/622115b329383ff7336947164acd6d348ebbebe0)) Fixed a small type that led to displaying the article's content twice
 * ([`bad8ef2`](https://github.com/MrShoenel/stab/commit/bad8ef2aa637d1c726c1dc604ccb9072e0dd0de5)) Newest changelog after feature 'MyDeps'
