@@ -365,7 +365,8 @@ module.exports = function(grunt) {
 	});
 	
 	grunt.registerTask('create-content', function() {
-		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i;
+		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i,
+			rxMyDeps = /^mydeps/i;
 		
 		var getAutoLastMod = function(path) {
 			return new Date(Date.parse(fs.statSync(path).mtime)).toISOString();
@@ -376,6 +377,13 @@ module.exports = function(grunt) {
 				path: contentDir + '/' + file,
 				type: null
 			};
+			
+			// Check if is a user-dependency (mydeps)
+			console.log(file);
+			if (file.startsWith('mydeps')) {
+				info.type = 'mydeps';
+				return processDependency(info);
+			}
 			
 			var content = grunt.file.read('./resource/' + info.path),
 				$ = cheerio.load(content);
@@ -391,6 +399,24 @@ module.exports = function(grunt) {
 			} else {
 				throw 'Cannot process content-file: ' + file;
 			}
+		};
+		
+		/**
+		 * This is used to return a dependency where we try to match
+		 * a type.
+		 * @see: https://oclazyload.readme.io/docs/oclazyload-service
+		 */
+		var processDependency = function(info) {
+			var supportedOcLazyLoadTypes = /(css|html|js)$/i,
+				exec = supportedOcLazyLoadTypes.exec(info.path);
+			
+			if (exec) {
+				info.path = { type: exec[1].toLowerCase(), path: info.path };
+			} else {
+				info.path = info.path;
+			}
+			
+			return info;
 		};
 		
 		/**
@@ -487,12 +513,18 @@ module.exports = function(grunt) {
 			];
 			
 			return ignore.indexOf(file) === -1 &&
-				rxHtml.test(file) && !rxDefault.test(file);
+				(rxHtml.test(file) || rxMyDeps.test(file)) && !rxDefault.test(file);
 		}).map(processFile);
 		
+		var rmType = function(obj) {
+			delete obj['type'];
+			return obj;
+		};
+		
 		grunt.file.write('./resource/' + contentDir + '/content.json', JSON.stringify({
-			metaArticles: files.filter(function(file) { return file.type === 'article'; }),
-			metaFragments: files.filter(function(file) { return file.type === 'fragment'; })
+			mydeps: files.filter(function(file) { return file.type === 'mydeps'; }).map(rmType),
+			metaArticles: files.filter(function(file) { return file.type === 'article'; }).map(rmType),
+			metaFragments: files.filter(function(file) { return file.type === 'fragment'; }).map(rmType)
 		}));
 		console.log('>> Wrote content.json');
 	});
