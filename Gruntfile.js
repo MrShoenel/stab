@@ -233,7 +233,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/content/',
-					src: ['*.md', '!default*md'],
+					src: ['**/*.md', '!default*md'],
 					dest: './resource/content/',
 					ext: '.html'
 				}]
@@ -450,6 +450,13 @@ module.exports = function(grunt) {
 			});
 			
 			info.teaser = striptags($('article').html()).replace(/\s+/g, ' ').trim();
+			if (info.teaser.length > 150) {
+				info.teaser = info.teaser.substr(0, 150);
+				var idx = info.teaser.lastIndexOf('.');
+				if (idx > 0) {
+					info.teaser = info.teaser.substr(0, idx) + '.';
+				}
+			}
 
 			// now check for lastmod, urlname and title:
 			if (!info.lastMod) {
