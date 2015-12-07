@@ -1,3 +1,6 @@
+* ([`3221e65`](https://github.com/MrShoenel/stab/commit/3221e6593cfafaacfb08d29a4548da8808ad9748)) Added processing of content in sub-directories and implemented a simple teaser-algorithm
+* ([`622115b`](https://github.com/MrShoenel/stab/commit/622115b329383ff7336947164acd6d348ebbebe0)) Fixed a small type that led to displaying the article's content twice
+* ([`bad8ef2`](https://github.com/MrShoenel/stab/commit/bad8ef2aa637d1c726c1dc604ccb9072e0dd0de5)) Newest changelog after feature 'MyDeps'
 * **([`48a8405`](https://github.com/MrShoenel/stab/commit/48a8405ab91f4cbf0307d03208ede6b909131c9b)) Upgrade to v1.4.2 after adding feature 'MyDeps'; updated the readme as well**
 * ([`72c78cd`](https://github.com/MrShoenel/stab/commit/72c78cd42c8356ae00e2545220e33994e9965080)) Add two examples for what JS/CSS 'mydeps'
 * ([`85d1c2b`](https://github.com/MrShoenel/stab/commit/85d1c2bfc41b86e3ff2f470fc2a1c703754328c1)) Updated the ContentJSON interface, the app-configuration and the service to load 'mydeps' using $ocLazyLoad
