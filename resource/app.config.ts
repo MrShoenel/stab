@@ -91,14 +91,19 @@ module Blog {
 									'./script/app/navigation/navigation.directive.js'
 								]
 							}),
-							services: ['$ocLazyLoad', '$injector', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService) => $ocLazyLoad.load({
+							services: ['$ocLazyLoad', '$injector', '$q', ($ocLazyLoad: oc.ILazyLoad, $injector: angular.auto.IInjectorService, $q: angular.IQService) => $ocLazyLoad.load({
 									name: 'blogapp.service',
 									files: [
 										'./script/app/service/content.service.js'
 									]
 								}).then(() => {
 									// This one will make the service initialize itself.
-									return $injector.get<Blog.Service.ContentService>('ContentService').initializeMetaContent();
+									var svc = $injector.get<Blog.Service.ContentService>('ContentService');
+
+									return $q.all([
+										svc.initializeMetaContent(),
+										svc.loadMyDeps($ocLazyLoad)
+									]);
 								})
 							]
 						}

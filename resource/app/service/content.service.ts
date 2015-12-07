@@ -49,6 +49,15 @@ module Blog.Service {
 		};
 		
 		/**
+		 * Function that loads all the user's dependencies.
+		 */
+		public loadMyDeps($ocLazyLoad: oc.ILazyLoad): angular.IPromise<void> {
+			return this.initializeMetaContent().then(cJson => {
+				return $ocLazyLoad.load(cJson.mydeps.map(dep => dep.path));
+			});
+		};
+		
+		/**
 		 * Gets one Article by its URL-name. Uses caching internally.
 		 */
 		public articleByUrlName(urlName: string): angular.IPromise<Common.Article> {

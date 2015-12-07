@@ -44,12 +44,15 @@ module Common {
 		fromUrl(url: string): angular.IPromise<string>;
 	}
 	
+	
+	
 	/**
 	 * Dedicated interface that represents the structure of our global content.json.
 	 * It contains meta-articles and meta-fragments and allows us to make extensions
 	 * later if required:
 	 */
 	export interface ContentJSON {
+		mydeps: { path: (string|oc.ITypedModuleConfig) }[];
 		metaArticles: MetaArticle[];
 		metaFragments: MetaFragment[];
 	}
