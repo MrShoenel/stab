@@ -2,7 +2,7 @@
 
 ***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
 
-The current version is ***1.3.2***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details.
+The current version is ***1.4.2***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details.
 
 
 
@@ -50,7 +50,9 @@ In short that means the following:
 	* If using Html, you may as well use ***angular-flavored*** Html with directives, models etc.
 * ***NEW*** in version *1.1.0*:
 	* Fragments: Add custom fragments to your content or template. This feature allows you to add arbitrary content using *Html* **or** *markdown* to your blog. The **new directive** *&lt;app-fragment id=":ID:" /&gt;* accepts an ID and embeds whatever content you desire: (angular-flavored) Html, JavaScript, Css or just plain text! Actually, the *header* and *footer* have been refatored to be fragments now and a very simple *breadcrumb*-fragments has been added!
-	
+* ***NEW*** in version *1.4.2*:
+	* *MyDeps* which is short for *My Dependencies*. This feature allows adding custom scripts, styles or any other files which can be loaded by **ocLazyLoad**. This is especially useful if you globally override styles or add features such as directives or filters to the *stab*. This also opens up *stab* for any kind of 3rd-party extensions!
+
 
 
 ## How-to: Create your own blog with stab
