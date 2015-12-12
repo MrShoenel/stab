@@ -100,7 +100,13 @@ module Blog {
 									// This one will make the service initialize itself.
 									return $injector.get<Blog.Service.ContentService>('ContentService').initializeMetaContent();
 								})
-							]
+							],
+							$uiStateData: [() => {
+								return {
+									title: 'stab',
+									defaultTitle: 'stab'
+								}
+							}]
 						}
 					});
 					
