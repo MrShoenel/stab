@@ -379,7 +379,6 @@ module.exports = function(grunt) {
 			};
 			
 			// Check if is a user-dependency (mydeps)
-			console.log(file);
 			if (file.startsWith('mydeps')) {
 				info.type = 'mydeps';
 				return processDependency(info);
@@ -444,6 +443,8 @@ module.exports = function(grunt) {
 					info.urlName = metaContent;
 				} else if (metaName === 'title') {
 					info.title = metaContent;
+				} else if (metaName === 'draft') {
+					info.draft = true;
 				} else {
 					info[metaName] = metaContent;
 				}
@@ -523,7 +524,11 @@ module.exports = function(grunt) {
 				!rxDefault.test(file) &&
 				!rxTsMap.test(file) &&
 				(rxHtml.test(file) || rxMyDeps.test(file));
-		}).map(processFile);
+		}).map(processFile).filter(function(file) {
+			// This change allows us to attach a draft-property to any kind
+			// of article, fragment or dependency. 
+			return !file.hasOwnProperty('draft');
+		});
 		
 		var rmType = function(obj) {
 			delete obj['type'];
