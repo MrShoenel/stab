@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 					<div class="site-heading">
-						<h1>{{ $uiStateData.title || 'stab' }}</h1>
+						<h1 ng-class="{ 'show-title': $uiStateData.title != $uiStateData.defaultTitle, 'hide-default-title': $uiStateData.title == $uiStateData.defaultTitle }">{{ $uiStateData.title || $uiStateData.defaultTitle }}</h1>
 						<hr ng-if="$uiStateData.article.meta.subtitle" class="small">
 						<h2 ng-if="$uiStateData.article.meta.subtitle" class="subheading">{{ $uiStateData.article.meta.subtitle }}</h2>
 						<span ng-if="$uiStateData.article.meta.author" class="meta">{{ $uiStateData.article.meta.author }}</span>
