@@ -1,3 +1,13 @@
+* ([`d87116c`](https://github.com/MrShoenel/stab/commit/d87116c6681a9ded477dd81ec672e720075b0fea)) Merge branch 'develop'
+* ([`cf9a167`](https://github.com/MrShoenel/stab/commit/cf9a167a786acd4e748e32c92ebb5a2bf7cd6a36)) Merge branch 'feature/cosmetics' into develop
+* ([`22f89d4`](https://github.com/MrShoenel/stab/commit/22f89d4308cba446f188969327213edc68112940)) Added a function to real-URI-decode strings (might look ugly in titles or breadcrumbs)
+* ([`6c03abf`](https://github.com/MrShoenel/stab/commit/6c03abf5c03499347c45a3d0d5b7ab275d7940a6)) Added the ability to tag articles with 'draft' so they won't be included in the content.json.
+* ([`1fd3316`](https://github.com/MrShoenel/stab/commit/1fd331680d3220c19122970db06589d60d248b91)) Ignore TypeScript and *.map files in user's dependencies
+* ([`c1cba87`](https://github.com/MrShoenel/stab/commit/c1cba87390d27aa0a5046ec70b08d38b2da13dc1)) Merge branch 'feature/cosmetics' into develop
+* ([`b3d642b`](https://github.com/MrShoenel/stab/commit/b3d642b391ba372bd38d72ed287e1b8306585b36)) Added a default title which can be defined and hidden and additional transitions
+* ([`3aa33f8`](https://github.com/MrShoenel/stab/commit/3aa33f84356c91c4f3f86a0c169bb0faa46881d1)) Merge branch 'develop'
+* ([`32ffcb3`](https://github.com/MrShoenel/stab/commit/32ffcb3a02ba8d56766d1dc3e8781ab5d9396418)) Force serial loading of read-state's files to avoid situations where the module is not yet present
+* ([`0d73adc`](https://github.com/MrShoenel/stab/commit/0d73adc7a85983e5d1ab242d8a98580b79275794)) Added link to my blog to the readme.md
 * **([`1c19874`](https://github.com/MrShoenel/stab/commit/1c1987439aaacf3b2eb8f806df26e6e2fac5401a)) Updated stab to v1.4.3 after having made two small fixes on the wrong branch ;)**
 * ([`3221e65`](https://github.com/MrShoenel/stab/commit/3221e6593cfafaacfb08d29a4548da8808ad9748)) Added processing of content in sub-directories and implemented a simple teaser-algorithm
 * ([`622115b`](https://github.com/MrShoenel/stab/commit/622115b329383ff7336947164acd6d348ebbebe0)) Fixed a small type that led to displaying the article's content twice
