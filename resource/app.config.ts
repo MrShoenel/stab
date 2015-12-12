@@ -105,7 +105,13 @@ module Blog {
 										svc.loadMyDeps($ocLazyLoad)
 									]);
 								})
-							]
+							],
+							$uiStateData: [() => {
+								return {
+									title: 'stab',
+									defaultTitle: 'stab'
+								}
+							}]
 						}
 					});
 					
