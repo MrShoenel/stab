@@ -366,7 +366,7 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('create-content', function() {
 		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i,
-			rxMyDeps = /^mydeps/i;
+			rxMyDeps = /^mydeps/i, rxTsMap = /\.(?:(ts)|(map))$/i;
 		
 		var getAutoLastMod = function(path) {
 			return new Date(Date.parse(fs.statSync(path).mtime)).toISOString();
@@ -520,7 +520,9 @@ module.exports = function(grunt) {
 			];
 			
 			return ignore.indexOf(file) === -1 &&
-				(rxHtml.test(file) || rxMyDeps.test(file)) && !rxDefault.test(file);
+				!rxDefault.test(file) &&
+				!rxTsMap.test(file) &&
+				(rxHtml.test(file) || rxMyDeps.test(file));
 		}).map(processFile);
 		
 		var rmType = function(obj) {
