@@ -168,8 +168,8 @@ module Blog {
 								var am = currentArticle.meta, ho = (prop: string) => am.hasOwnProperty(prop),
 									stateData = {
 										article: currentArticle,
-										title: currentArticle.meta.title,
-										breadCrumb: currentArticle.meta.title,
+										title: realDecodeURI(currentArticle.meta.title),
+										breadCrumb: realDecodeURI(currentArticle.meta.title),
 										meta: [
 											['last-modified', new Date(Date.parse(am.lastMod))['toGMTString']()]
 										]
@@ -207,8 +207,8 @@ module Blog {
 							}),
 							$uiStateData: ['$stateParams', ($stateParams: angular.ui.IStateParamsService) => {
 								return {
-									title: 'dir:/' + $stateParams['listType'],
-									breadCrumb: 'dir:/' + $stateParams['listType']
+									title: 'dir:/' + realDecodeURI($stateParams['listType']),
+									breadCrumb: 'dir:/' + realDecodeURI($stateParams['listType'])
 								};
 							}]
 						}
@@ -248,5 +248,16 @@ module Blog {
 					});
 				};
 			}]);
+	};
+	
+	/**
+	 * Decodes a URL-encoded string, even if it has been encoded
+	 * multiple times.
+	 */
+	export function realDecodeURI(str: string): string {
+		while (/%[0-9a-f]{2}/i.test(str)) {
+			str = decodeURIComponent(str);
+		}
+		return str;
 	}
 }
