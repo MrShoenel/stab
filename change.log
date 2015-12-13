@@ -1,3 +1,18 @@
+* ([`e522e10`](https://github.com/MrShoenel/stab/commit/e522e10bce4adfc599b469f6ee720b0c79af7361)) Merge branch 'feature/cosmetics' into develop
+* ([`c377bb5`](https://github.com/MrShoenel/stab/commit/c377bb57c3510d9d531ab2505972af369780ffa8)) Cleaned up the navigation and fixed issues where the bar was visible when it shouldn't have been and when it stayed visible
+* ([`3cc47a5`](https://github.com/MrShoenel/stab/commit/3cc47a5dd3ef6e385178d0c1669ee5f44183d302)) Disallowed mobile zooming
+* ([`f84f517`](https://github.com/MrShoenel/stab/commit/f84f5179cfb9968944eb506e57bbf9111f4a5ec8)) Made the search template now use Jar Winkler as the default scoring method
+* ([`c6e7b49`](https://github.com/MrShoenel/stab/commit/c6e7b49f3c6760bc7b0885503870fce8650a1d61)) Added attribute 'inject' to ArticleListDirective and a method to parse its content to an IKVStore<any>
+* ([`351487c`](https://github.com/MrShoenel/stab/commit/351487cfa0a5d8db1a0bcda9a0a9dd187d6b2bae)) Added missing references for oclazyload which could lead to build errors
+* ([`abfc9f9`](https://github.com/MrShoenel/stab/commit/abfc9f944a59b9e10558161414a9732c0d89ffde)) Added the Jaro Winkler string distance method for searching
+* ([`cf9a167`](https://github.com/MrShoenel/stab/commit/cf9a167a786acd4e748e32c92ebb5a2bf7cd6a36)) Merge branch 'feature/cosmetics' into develop
+* ([`22f89d4`](https://github.com/MrShoenel/stab/commit/22f89d4308cba446f188969327213edc68112940)) Added a function to real-URI-decode strings (might look ugly in titles or breadcrumbs)
+* ([`6c03abf`](https://github.com/MrShoenel/stab/commit/6c03abf5c03499347c45a3d0d5b7ab275d7940a6)) Added the ability to tag articles with 'draft' so they won't be included in the content.json.
+* ([`1fd3316`](https://github.com/MrShoenel/stab/commit/1fd331680d3220c19122970db06589d60d248b91)) Ignore TypeScript and *.map files in user's dependencies
+* ([`c1cba87`](https://github.com/MrShoenel/stab/commit/c1cba87390d27aa0a5046ec70b08d38b2da13dc1)) Merge branch 'feature/cosmetics' into develop
+* ([`b3d642b`](https://github.com/MrShoenel/stab/commit/b3d642b391ba372bd38d72ed287e1b8306585b36)) Added a default title which can be defined and hidden and additional transitions
+* ([`32ffcb3`](https://github.com/MrShoenel/stab/commit/32ffcb3a02ba8d56766d1dc3e8781ab5d9396418)) Force serial loading of read-state's files to avoid situations where the module is not yet present
+* **([`1c19874`](https://github.com/MrShoenel/stab/commit/1c1987439aaacf3b2eb8f806df26e6e2fac5401a)) Updated stab to v1.4.3 after having made two small fixes on the wrong branch ;)**
 * ([`3221e65`](https://github.com/MrShoenel/stab/commit/3221e6593cfafaacfb08d29a4548da8808ad9748)) Added processing of content in sub-directories and implemented a simple teaser-algorithm
 * ([`622115b`](https://github.com/MrShoenel/stab/commit/622115b329383ff7336947164acd6d348ebbebe0)) Fixed a small type that led to displaying the article's content twice
 * ([`bad8ef2`](https://github.com/MrShoenel/stab/commit/bad8ef2aa637d1c726c1dc604ccb9072e0dd0de5)) Newest changelog after feature 'MyDeps'
