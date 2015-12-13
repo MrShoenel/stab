@@ -218,7 +218,8 @@ module Blog {
 						reloadOnSearch: false,
 						parent: 'main',
 						url: '/search/{pageIdx:int}',
-						template: '<article-list list-type="search"></article-list>',
+						// The search-template will use the Jaro Winkler string distance for scoring now by default.
+						template: '<article-list list-type="search" inject="scorer=jaro-winkler"></article-list>',
 						params: {
 							pageIdx: {
 								value: 0,

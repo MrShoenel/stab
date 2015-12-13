@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts" />
+/// <reference path="../../../typings/oclazyload/oclazyload.d.ts" />
 /// <reference path="../../app.common.ts" />
 
 module Blog.Service {
