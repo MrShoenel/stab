@@ -20,7 +20,8 @@ module Blog.ArticleList {
 			scope: {
 				listType: '@',
 				sortReverse: '@',
-				pageIndex: '@'
+				pageIndex: '@',
+				inject: '@'
 			}
 		}
 	}

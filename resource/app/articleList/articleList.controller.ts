@@ -13,6 +13,7 @@ module Blog.ArticleList {
 		public listType: string;
 		public sortReverse: boolean;
 		public pageIndex: number;
+		public inject: Common.IKVStore<string>;
 		public searchTerm: string;
 		
 		public itemsPerPage: number;
@@ -28,7 +29,9 @@ module Blog.ArticleList {
 			
 			this.listType = $scope['listType'] || $stateParams['listType'];
 			this.sortReverse = $scope['sortReverse'] === 'true';
-			this.pageIndex = $scope['sortReverse'] ? parseInt($scope['sortReverse']) : <number>$stateParams['pageIdx'] || 0;
+			this.pageIndex = $scope['sortReverse'] ?
+				parseInt($scope['sortReverse']) : <number>$stateParams['pageIdx'] || 0;
+			this.inject = ArticleListController.parseInject($scope['inject'] || '');
 			this.searchTerm = this.$location.search()['q'];
 			this.itemsPerPage = CONFIG.get<number>('ITEMS_PER_PAGE', 5);
 			
@@ -48,6 +51,19 @@ module Blog.ArticleList {
 			if (this.listType === 'search') {
 				this.isSearch = true;
 			}
+		};
+		
+		/**
+		 * Parses a string of the form "a=b;c=d;.." into a KVStore<string>.
+		 * This is useful when multiple values were supposed to be injected.
+		 */
+		private static parseInject(inject: string): Common.IKVStore<string> {
+			var kv = <Common.IKVStore<string>>{}, split = inject.split(';');
+			split.forEach(spl => {
+				var arr = spl.split('=');
+				kv[arr[0]] = arr[1];
+			});
+			return kv;
 		};
 		
 		private advanceToPage(): void {
@@ -100,6 +116,9 @@ module Blog.ArticleList {
 			var search = this.$location.search();
 			if (search.hasOwnProperty('q')) {
 				strategy.inject('locationSearch', search['q']);
+			}
+			for (const key in this.inject) {
+				strategy.inject(key, this.inject[key]);
 			}
 			
 			return strategy;
