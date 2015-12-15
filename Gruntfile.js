@@ -3,7 +3,8 @@
 var fs = require('fs'),
 	process = require('process'),
 	cheerio = require('cheerio'),
-	striptags = require('striptags');
+	striptags = require('striptags'),
+	crypto = require('crypto');
 
 module.exports = function(grunt) {
 	// Dynamically loads all required grunt tasks
@@ -366,7 +367,20 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('create-content', function() {
 		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i,
-			rxMyDeps = /^mydeps/i, rxTsMap = /\.(?:(ts)|(map))$/i;
+			rxMyDeps = /^mydeps/i, rxTsMap = /\.(?:(ts)|(map))$/i,
+			hashExists = (function() {
+				var oldJsonArticles = [];
+				try {
+					oldJsonArticles = grunt.file.readJSON(
+						'./resource/' + contentDir + '/content.json').metaArticles;
+				} catch (e) {}
+				
+				return function(hash) {
+					return oldJsonArticles.filter(function(metaArt) {
+						return metaArt.hash === hash;
+					}).length > 0;
+				};
+			})();
 		
 		var getAutoLastMod = function(path) {
 			return new Date(Date.parse(fs.statSync(path).mtime)).toISOString();
@@ -428,6 +442,7 @@ module.exports = function(grunt) {
 			info.urlName = null;
 			info.teaser = null;
 			info.title = null;
+			info.hash = crypto.createHash('sha1').update(content).digest('hex');
 			
 			$('meta').toArray().forEach(function(htmlMeta) {
 				var metaName = $(htmlMeta).attr('name').toLowerCase(),
@@ -435,7 +450,11 @@ module.exports = function(grunt) {
 				
 				if (metaName === 'lastmodified') {
 					if (metaContent === 'auto') {
-						info.lastMod = getAutoLastMod('./resource/' + info.path);
+						// Now we have to check if an update of the lastmod is
+						// required by comparing to a hash:
+						if (!hashExists(info.hash)) {
+							info.lastMod = getAutoLastMod('./resource/' + info.path);
+						}
 					} else {
 						info.lastMod = new Date(Date.parse(metaContent)).toISOString()
 					}
@@ -530,15 +549,16 @@ module.exports = function(grunt) {
 			return !file.hasOwnProperty('draft');
 		});
 		
-		var rmType = function(obj) {
+		var rmProps = function(obj) {
 			delete obj['type'];
+			delete obj['last-modified']; // we will have 'lastMod'
 			return obj;
 		};
 		
 		grunt.file.write('./resource/' + contentDir + '/content.json', JSON.stringify({
-			mydeps: files.filter(function(file) { return file.type === 'mydeps'; }).map(rmType),
-			metaArticles: files.filter(function(file) { return file.type === 'article'; }).map(rmType),
-			metaFragments: files.filter(function(file) { return file.type === 'fragment'; }).map(rmType)
+			mydeps: files.filter(function(file) { return file.type === 'mydeps'; }).map(rmProps),
+			metaArticles: files.filter(function(file) { return file.type === 'article'; }).map(rmProps),
+			metaFragments: files.filter(function(file) { return file.type === 'fragment'; }).map(rmProps)
 		}));
 		console.log('>> Wrote content.json');
 	});

@@ -1,3 +1,15 @@
+* ([`a7870e0`](https://github.com/MrShoenel/stab/commit/a7870e080fd20aba7d68bebe08327469052a42e7)) Update of package.json and readme.md to latest version
+* ([`11357bf`](https://github.com/MrShoenel/stab/commit/11357bf5b286eb547a17f69d82be9c4e353b8c8d)) Merge branch 'develop'
+* **([`7c8bc11`](https://github.com/MrShoenel/stab/commit/7c8bc117c84d26b9b6f02b4e0f95cd83f9691100)) Update stab to v1.4.5 so we can release it.**
+* ([`29fa005`](https://github.com/MrShoenel/stab/commit/29fa005446eb7f4c540cae74074a17ee33cb64b1)) Merge branch 'develop'
+* ([`e522e10`](https://github.com/MrShoenel/stab/commit/e522e10bce4adfc599b469f6ee720b0c79af7361)) Merge branch 'feature/cosmetics' into develop
+* ([`c377bb5`](https://github.com/MrShoenel/stab/commit/c377bb57c3510d9d531ab2505972af369780ffa8)) Cleaned up the navigation and fixed issues where the bar was visible when it shouldn't have been and when it stayed visible
+* ([`3cc47a5`](https://github.com/MrShoenel/stab/commit/3cc47a5dd3ef6e385178d0c1669ee5f44183d302)) Disallowed mobile zooming
+* ([`f84f517`](https://github.com/MrShoenel/stab/commit/f84f5179cfb9968944eb506e57bbf9111f4a5ec8)) Made the search template now use Jar Winkler as the default scoring method
+* ([`c6e7b49`](https://github.com/MrShoenel/stab/commit/c6e7b49f3c6760bc7b0885503870fce8650a1d61)) Added attribute 'inject' to ArticleListDirective and a method to parse its content to an IKVStore<any>
+* ([`351487c`](https://github.com/MrShoenel/stab/commit/351487cfa0a5d8db1a0bcda9a0a9dd187d6b2bae)) Added missing references for oclazyload which could lead to build errors
+* ([`abfc9f9`](https://github.com/MrShoenel/stab/commit/abfc9f944a59b9e10558161414a9732c0d89ffde)) Added the Jaro Winkler string distance method for searching
+* **([`91190c5`](https://github.com/MrShoenel/stab/commit/91190c5c6dbdc18f97ad0d82c0c57b4ca8bc1541)) Upgraded stab to v1.4.4 after mostly cosmetical fixes**
 * ([`d87116c`](https://github.com/MrShoenel/stab/commit/d87116c6681a9ded477dd81ec672e720075b0fea)) Merge branch 'develop'
 * ([`cf9a167`](https://github.com/MrShoenel/stab/commit/cf9a167a786acd4e748e32c92ebb5a2bf7cd6a36)) Merge branch 'feature/cosmetics' into develop
 * ([`22f89d4`](https://github.com/MrShoenel/stab/commit/22f89d4308cba446f188969327213edc68112940)) Added a function to real-URI-decode strings (might look ugly in titles or breadcrumbs)
