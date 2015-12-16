@@ -18,7 +18,10 @@ module Blog.ArticleList {
 		
 		public itemsPerPage: number;
 		
-		public isSearch: boolean = false;
+		/**
+		 * Used by the directive's template.
+		 */
+		public isSearchList: boolean = false;
     
     /**
 		 * Used as dependecy-injected factory.
@@ -28,6 +31,7 @@ module Blog.ArticleList {
 		public constructor(private ContentService: Blog.Service.ContentService, private $stateParams: angular.ui.IStateParamsService, private $scope: angular.IScope, private $location: angular.ILocationService, private CONFIG: Common.Constants) {
 			
 			this.listType = $scope['listType'] || $stateParams['listType'];
+			this.isSearchList = this.listType === 'search';
 			this.sortReverse = $scope['sortReverse'] === 'true';
 			this.pageIndex = $scope['sortReverse'] ?
 				parseInt($scope['sortReverse']) : <number>$stateParams['pageIdx'] || 0;
@@ -48,9 +52,13 @@ module Blog.ArticleList {
 			if (this.searchTerm) {
 				this.search();
 			}
-			if (this.listType === 'search') {
-				this.isSearch = true;
-			}
+		};
+		
+		/**
+		 * Public getter for isSearch.
+		 */
+		public get isSearch(): boolean {
+			return this.isSearchList;
 		};
 		
 		/**
@@ -58,6 +66,11 @@ module Blog.ArticleList {
 		 * This is useful when multiple values were supposed to be injected.
 		 */
 		private static parseInject(inject: string): Common.IKVStore<string> {
+			inject = (inject + '').trim();
+			if (inject.length === 0) {
+				return {};
+			}
+
 			var kv = <Common.IKVStore<string>>{}, split = inject.split(';');
 			split.forEach(spl => {
 				var arr = spl.split('=');
