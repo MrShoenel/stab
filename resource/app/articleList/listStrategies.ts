@@ -9,7 +9,8 @@ module Blog.ArticleList {
 	export class ListAllStrategy extends Common.AListStrategy {
 		type = 'all';
 		reverse = false;
-		itemsList = (source: Common.MetaArticle[]) => {
+		
+		public itemsList(source: Common.MetaArticle[]): Common.MetaArticle[] {
 			var x = this.reverse ? -1 : 1, y = this.reverse ? 1 : -1;
 			return source.sort((a, b) => Date.parse(a.lastMod) < Date.parse(b.lastMod) ? x : y);	
 		};
@@ -17,10 +18,10 @@ module Blog.ArticleList {
 		/**
 		 * Override to signal that this strategy can handle the 'all' list-type.
 		 */
-		static canHandle = (listType: string) => {
+		static canHandle(listType: string): boolean {
 			return (listType + '').toLowerCase() === 'all';
-		}
-	}
+		};
+	};
 	
 	
 	/**
@@ -32,7 +33,7 @@ module Blog.ArticleList {
 		 * Returns all articles within the given year (the year was supplied
 		 * here in the constructor as the listType-argument).
 		 */
-		itemsList = (source: Common.MetaArticle[]) => {
+		public itemsList(source: Common.MetaArticle[]): Common.MetaArticle[] {
 			var minTime = Date.parse(this.type),
 				maxTimeExcl = Date.parse((parseInt(this.type) + 1).toString());
 			var x = this.reverse ? -1 : 1, y = this.reverse ? 1 : -1;
@@ -43,10 +44,10 @@ module Blog.ArticleList {
 			}).sort((a, b) => Date.parse(a.lastMod) < Date.parse(b.lastMod) ? x : y);
 		};
 				
-		static canHandle = (listType: string) => {
+		static canHandle(listType: string): boolean {
 			return /^2[0-9]{3}$/.test(listType) && !isNaN(Date.parse(listType));
 		};
-	}
+	};
 	
 	
 	/**
@@ -55,7 +56,7 @@ module Blog.ArticleList {
 	 * It returns then a descending list of them.
 	 */
 	export class SimpleSearchStrategy extends Common.AListStrategy {
-		itemsList = (source: Common.MetaArticle[]) => {
+		public itemsList(source: Common.MetaArticle[]): Common.MetaArticle[] {
 			var searchParam = <string>this.injected['locationSearch'];
 			
 			if (searchParam === undefined) {
@@ -63,6 +64,8 @@ module Blog.ArticleList {
 			}
 			searchParam = searchParam.toLowerCase();
 			var scoreMethod = this.injected['scorer'] && this.injected['scorer'].indexOf('jaro-winkler') >= 0 ? SimpleSearchStrategy.score_JaroWinkler : SimpleSearchStrategy.score;
+			var minCertainty = this.injected['scorer-min-certainty'] ?
+				parseFloat(this.injected['scorer-min-certainty']) || 0 : 0;
 			
 			return source.map(metaArt => {
 				metaArt.score = Math.max.apply(null, Object.keys(metaArt).map(key => {
@@ -70,12 +73,12 @@ module Blog.ArticleList {
 						scoreMethod((<string>metaArt[key]).toLowerCase(), searchParam) : 0;
 				}));
 				return metaArt;
-			}).filter(metaArt => metaArt.score > 0).sort((o1, o2) => {
+			}).filter(metaArt => metaArt.score > minCertainty).sort((o1, o2) => {
 				return o2.score - o1.score;
 			});
 		};
 		
-		static canHandle = (listType: string) => {
+		static canHandle(listType: string): boolean {
 			return (listType + '').toLowerCase() === 'search'
 		};
 		
@@ -214,5 +217,5 @@ module Blog.ArticleList {
 			jaro = ((numMatches / string1.length) + (numMatches / string2.length) + (numMatches - ~~(transpositions / 2)) / numMatches) / 3.0;
 			return jaro + Math.min(prefix, 4) * 0.1 * (1 - jaro);
 		};
-	}
+	};
 }

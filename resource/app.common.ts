@@ -159,7 +159,7 @@ module Common {
 		 * This method supposedly returns an ordered array of meta-articles
 		 * based on the implemented strategy and given parameters.
 		 */
-		public itemsList: (source: MetaArticle[]) => MetaArticle[];
+		public abstract itemsList(source: MetaArticle[]): MetaArticle[];
 		
 		/**
 		 * This function may be used by a controller to inject parameters such
