@@ -1,3 +1,13 @@
+* ([`edd9b08`](https://github.com/MrShoenel/stab/commit/edd9b08962f8dd419502b2d9fe4040dae76e1367)) Updated the package.json to the latest version of Stab
+* ([`b02f249`](https://github.com/MrShoenel/stab/commit/b02f249d7f176c403f7e75e17a7cf8f2226091f0)) Updated the readme with the feature 'Content-Transform'
+* ([`45b2ce1`](https://github.com/MrShoenel/stab/commit/45b2ce13dc1ad1343fc7ba0046a8f01df6ba96aa)) Added a simple ContentTransformer that can process links to other articles with the "stab-ref"-attribute
+* ([`a28342e`](https://github.com/MrShoenel/stab/commit/a28342e0c39e5035a20fad398190caa64131518f)) Changed the config to make the ArticleModule available to the ContentService so it can pick up ContentTransformers
+* ([`59ed556`](https://github.com/MrShoenel/stab/commit/59ed5564bbc065a9175630999e0b479cfffe0bb5)) Made the ContentService pick up ContentTransformers from the Blog.Article-namespace and use them as pre-processors
+* ([`8f91c30`](https://github.com/MrShoenel/stab/commit/8f91c30dbb8a8b3c2f1fa807c0d0455e738b281d)) Added the ContentTransformer interface and a method in the Article to apply such transformers
+* ([`1f31688`](https://github.com/MrShoenel/stab/commit/1f31688d290f659661902c49bcbb16be40607438)) Re-added link to my blog due to earlier merge-conflict with readme.md
+* ([`f43f30f`](https://github.com/MrShoenel/stab/commit/f43f30f8cc5816cb215580d9adb15793a4515a32)) Added the minimum scorer certainty to the articleList's directive's injectable parameters
+* ([`2ba213a`](https://github.com/MrShoenel/stab/commit/2ba213a928b13fea47ae87ea2e2ace4c15beee98)) Polished code for list-strategies to have itemsList() as abstract method
+* **([`d9731de`](https://github.com/MrShoenel/stab/commit/d9731de9f512e7992e8a3a96411f67b8e242fb6c)) Update stab to v1.4.6 for new release**
 * ([`01aee82`](https://github.com/MrShoenel/stab/commit/01aee82be496e33dd2052ca20a79ae0115db6e50)) Articles' content is now hashed so that lastMod is now only updated if necessary and set to 'auto'
 * **([`7c8bc11`](https://github.com/MrShoenel/stab/commit/7c8bc117c84d26b9b6f02b4e0f95cd83f9691100)) Update stab to v1.4.5 so we can release it.**
 * ([`e522e10`](https://github.com/MrShoenel/stab/commit/e522e10bce4adfc599b469f6ee720b0c79af7361)) Merge branch 'feature/cosmetics' into develop
