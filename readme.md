@@ -2,7 +2,7 @@
 
 ***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
 
-The current version is ***1.4.6***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
+The current version is ***1.5.6***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
 
 
 
@@ -52,6 +52,8 @@ In short that means the following:
 	* Fragments: Add custom fragments to your content or template. This feature allows you to add arbitrary content using *Html* **or** *markdown* to your blog. The **new directive** *&lt;app-fragment id=":ID:" /&gt;* accepts an ID and embeds whatever content you desire: (angular-flavored) Html, JavaScript, Css or just plain text! Actually, the *header* and *footer* have been refatored to be fragments now and a very simple *breadcrumb*-fragments has been added!
 * ***NEW*** in version *1.4.2*:
 	* *MyDeps* which is short for *My Dependencies*. This feature allows adding custom scripts, styles or any other files which can be loaded by **ocLazyLoad**. This is especially useful if you globally override styles or add features such as directives or filters to the *stab*. This also opens up *stab* for any kind of 3rd-party extensions!
+* ***NEW*** in version *1.5.6*:
+  * *Content-Transformers* allow arbitrary and dynamic pre-processing of the content of articles. *STAB* comes with one transformer to process ***&lt;a stab-ref="&lt;article-url-name&gt;"&gt; .. &lt;/a&gt;***-links. This is useful if you want to link within articles without having to care for the underlying URL-structure. You may use *MyDeps* to load your custom transformers by just implementing the interface *Common.ContentTransformer* and putting your transformer into the *Blog.Article*-namespace.
 
 
 
