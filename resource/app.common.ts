@@ -13,7 +13,7 @@ module Common {
 	 */
 	export interface IModuleFactory {
 		createModule(): angular.IModule;
-	}
+	};
 	
 	/**
 	 * Class used to encapsulate constants as they're not automagically
@@ -25,17 +25,17 @@ module Common {
 		
 		public constructor() {
 			this.values = {};
-		}
+		};
 		
 		public add<T>(key: string, value: T): Constants {
 			this.values[key] = value;
 			return this;
-		}
+		};
 		
 		public get<T>(key: string, defaultIfMissing?:T):T {
 			return this.values[key] || defaultIfMissing;
-		}		
-	}
+		};	
+	};
 	
 	/**
 	 * Temporary interface to describe the ui-router's $templateFactory. This is
@@ -43,7 +43,7 @@ module Common {
 	 */
 	export interface $TemplateFactory {
 		fromUrl(url: string): angular.IPromise<string>;
-	}
+	};
 	
 	
 	
@@ -56,7 +56,7 @@ module Common {
 		mydeps: { path: (string|oc.ITypedModuleConfig) }[];
 		metaArticles: MetaArticle[];
 		metaFragments: MetaFragment[];
-	}
+	};
 	
 	export interface Meta extends Common.IKVStore<any> {
 		author?: string;
@@ -64,30 +64,33 @@ module Common {
 		description?: string;
 		keywords?: string;
 		score?: number;
-	}
+	};
 	
 	export interface MetaArticle extends Meta {
 		path: string;
 		lastMod: string;
 		urlName: string;
 		title: string;
-	}
+	};
 	
+  /**
+   * This class represents one Article which can be displayed by STAB.
+   */
 	export class Article {
 		constructor(private _metaArticle: MetaArticle, private _original: string, private $sce: angular.ISCEService) {
-		}
+		};
 		
 		public get meta(): MetaArticle {
 			return angular.extend({}, this._metaArticle);
-		}
+		};
 		
 		public get original(): string {
 			return this._original.substr(0);
-		}
+		};
 		
 		public get asJQuery(): angular.IAugmentedJQuery {
 			return angular.element(this._original);
-		}
+		};
 		
 		public get asTrustedHtml(): any {
 			var article = Array.prototype.slice.call(this.asJQuery, 0).filter(element => {
@@ -96,8 +99,28 @@ module Common {
 			})[0];
 			
 			return this.$sce.trustAsHtml(angular.element(article).html());
-		}
-	}
+		};
+    
+    /**
+     * This function accepts a content transformer which can apply changes
+     * to the original content of this article.
+     */
+    public transformContent(transformer: ContentTransformer): Common.Article {
+      this._original = transformer.transform(this._original);
+      return this;
+    };
+	};
+  
+  /**
+   * This interface must be implemented by all content transformers. Instance
+   * of it will be automatically picked up by the ContentService and applied
+   * to any Article. The order of processing is however not guaranteed. Note
+   * that if you want to provide your own, user-defined transformers, they must
+   * be declared within the module/namespace 'Blog.Article'.
+   */
+  export interface ContentTransformer {
+    transform(original: string): string;
+  };
 	
 	export class Page<T> {
 		
@@ -107,15 +130,15 @@ module Common {
 		constructor(public items: T[], public index: number) {
 			this.next = null;
 			this.prev = null;
-		}
+		};
 		
 		public hasPrev(): boolean {
 			return this.prev !== null;
-		}
+		};
 		
 		public hasNext(): boolean {
 			return this.next !== null;
-		}
+		};
 		
 		/**
 		 * Takes a number of items and partitions them into pages by the
@@ -143,8 +166,8 @@ module Common {
 			}
 			
 			return pages[0];
-		}
-	}
+		};
+	};
 	
 	/**
 	 * We might want to have different list-sites and each of them requires
@@ -153,7 +176,7 @@ module Common {
 	export abstract class AListStrategy {
 		protected injected: IKVStore<any> = {};
 		
-		public constructor(public type: string, public reverse: boolean) { }
+		public constructor(public type: string, public reverse: boolean) { };
 		
 		/**
 		 * This method supposedly returns an ordered array of meta-articles
@@ -168,7 +191,7 @@ module Common {
 		public inject(key: string, value: any): AListStrategy {
 			this.injected[key] = value;
 			return this;
-		}
+		};
 
 		/**
 		 * Static method that returns false by default. When a specific
@@ -179,24 +202,24 @@ module Common {
 		static canHandle(listType: string): boolean {
 			return false;
 		};
-	}
+	};
 	
 	export class I2Tuple<T1, T2> {
 		constructor(private _t1: T1, private _t2: T2) {
-		}
+		};
 		
 		public get t1() {
 			return this._t1;
-		}
+		};
 		
 		public get t2() {
 			return this._t2;
-		}
-	}
+		};
+	};
 	
 	export interface IKVStore<T> {
 		[key:string]: T;
-	}
+	};
 	
 	
 	/**
@@ -220,10 +243,10 @@ module Common {
 		// will be interpreted as text/plain which results
 		// in no processing.
 		mime?: string;
-	}
+	};
 	
 	/**
-	 * This class represents a fragment
+	 * This class represents a fragment.
 	 */
 	export class Fragment {
 		private trusted: any;
@@ -248,21 +271,21 @@ module Common {
 			})[0];
 			
 			this.trusted = $sce.trustAs($sceMethod, angular.element(fragmentElem).html()); 
-		}
+		};
 		
 		public get meta(): MetaFragment {
 			return angular.extend({}, this._meta);
-		}
+		};
 		
 		/**
 		 * Getter for the trusted value of the fragment.
 		 */
 		public get trustedValue(): any {
 			return this.trusted;
-		}
+		};
 		
 		public static get supportedMimeTypes(): string[] {
 			return Fragment.supportedMimeTypesArray.slice(0).map(t => t.mime);
-		}
-	}
+		};
+	};
 }

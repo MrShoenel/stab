@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angularjs/angular.d.ts" />
 /// <reference path="../../../typings/oclazyload/oclazyload.d.ts" />
+/// <reference path="../article/article.module.ts" />
 /// <reference path="../../app.common.ts" />
 
 module Blog.Service {
@@ -68,6 +69,7 @@ module Blog.Service {
 				return this.$http.get<string>(this.metaCache.get<Common.MetaArticle>(urlName).path).then(arg => {
 					var article = new Common.Article(
 						this.metaCache.get<Common.MetaArticle>(urlName), arg.data, this.$sce);
+          ContentService.preprocessArticle(article);
 
 					this.cache.put(urlName, article);
 					return article;
@@ -142,6 +144,23 @@ module Blog.Service {
 				});
 			});
 		};
+    
+    /**
+     * This function picks up all ContentTransformers and applies them to
+     * the given article.
+     */
+    private static preprocessArticle(article: Common.Article): Common.Article {
+      var allTransformers: Common.ContentTransformer[] = Object.keys(Blog.Article).map(key => {
+        const proto = Blog.Article[key]['prototype'] || null;
+        const instance = Object.create(proto);
+        return typeof instance['transform'] === 'function' ? instance : null;
+      }).filter(transformer => transformer !== null);
+      
+      allTransformers
+        .forEach(transformer => article.transformContent(transformer));
+      
+      return article;
+    };
 	};
 	
 	angular.module('blogapp').service('ContentService', ContentService.inlineAnnotatedConstructor);

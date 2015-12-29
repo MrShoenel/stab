@@ -13,7 +13,20 @@ module Blog.Article {
 		public createModule(): angular.IModule {
 			return angular.module('blogapp.article', []);
 		}
-	}
+	};
+  
+  /**
+   * This class will transform internal links which use the notation
+   * <a stab-ref="<article-url-name>">..</a> into proper links that
+   * can be used to link within articles.
+   */
+  export class StabArticleLinkContentTransformer implements Common.ContentTransformer {
+    public transform(original: string): string {
+      return original.replace(/stab-ref="(.*?)"/ig, (substring: string, ref: string) => {
+        return 'href="#!/read/' + ref + '"';
+      });
+    };
+  };
 
 	export var module = new Article().createModule();
 }

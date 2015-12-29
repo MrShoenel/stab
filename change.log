@@ -1,3 +1,10 @@
+* ([`d365959`](https://github.com/MrShoenel/stab/commit/d365959f977875fe6490023071d39161563a8da7)) Merge branch 'develop'
+* ([`1f31688`](https://github.com/MrShoenel/stab/commit/1f31688d290f659661902c49bcbb16be40607438)) Re-added link to my blog due to earlier merge-conflict with readme.md
+* ([`f43f30f`](https://github.com/MrShoenel/stab/commit/f43f30f8cc5816cb215580d9adb15793a4515a32)) Added the minimum scorer certainty to the articleList's directive's injectable parameters
+* ([`2ba213a`](https://github.com/MrShoenel/stab/commit/2ba213a928b13fea47ae87ea2e2ace4c15beee98)) Polished code for list-strategies to have itemsList() as abstract method
+* **([`51909d2`](https://github.com/MrShoenel/stab/commit/51909d27408c98e373bfada19a227cbeaf06cb29)) Merge branch 'develop' with fix for 'auto-lastmod' so we can release new version v1.4.6**
+* **([`d9731de`](https://github.com/MrShoenel/stab/commit/d9731de9f512e7992e8a3a96411f67b8e242fb6c)) Update stab to v1.4.6 for new release**
+* ([`01aee82`](https://github.com/MrShoenel/stab/commit/01aee82be496e33dd2052ca20a79ae0115db6e50)) Articles' content is now hashed so that lastMod is now only updated if necessary and set to 'auto'
 * ([`a7870e0`](https://github.com/MrShoenel/stab/commit/a7870e080fd20aba7d68bebe08327469052a42e7)) Update of package.json and readme.md to latest version
 * ([`11357bf`](https://github.com/MrShoenel/stab/commit/11357bf5b286eb547a17f69d82be9c4e353b8c8d)) Merge branch 'develop'
 * **([`7c8bc11`](https://github.com/MrShoenel/stab/commit/7c8bc117c84d26b9b6f02b4e0f95cd83f9691100)) Update stab to v1.4.5 so we can release it.**
