@@ -161,7 +161,7 @@ module Blog {
 								]
 							}),
 							// 'services' is from the parent's resolve
-							currentArticle: ['$stateParams', 'ContentService', 'services', ($stateParams: angular.ui.IStateParamsService, contentService: Service.ContentService, services: any) => {
+							currentArticle: ['$stateParams', 'articleModule', 'ContentService', 'services', ($stateParams: angular.ui.IStateParamsService, articleModule: any, contentService: Service.ContentService, services: any) => {
 								return contentService.articleByUrlName($stateParams['articleUrlName']);
 							}],
 							$uiStateData: ['currentArticle', (currentArticle: Common.Article) => {
