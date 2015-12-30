@@ -449,6 +449,7 @@ module.exports = function(grunt) {
 					metaContent = $(htmlMeta).attr('content');
 				
 				if (metaName === 'lastmodified') {
+				if (/last-?modified/i.test(metaName)) {
 					if (metaContent === 'auto') {
 						// Now we have to check if an update of the lastmod is
 						// required by comparing to a hash:
