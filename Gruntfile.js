@@ -456,14 +456,16 @@ module.exports = function(grunt) {
 				var metaName = $(htmlMeta).attr('name').toLowerCase(),
 					metaContent = $(htmlMeta).attr('content');
 				
-				if (metaName === 'lastmodified') {
 				if (/last-?modified/i.test(metaName)) {
 					if (metaContent === 'auto') {
 						// Now we have to check if an update of the lastmod is
 						// required by comparing to a hash:
-						if (!hashExists(info.hash)) {
+						if (helper.hashExists(info.hash)) {
+              // then we'll have to keep the existing lastMod-date
+              info.lastMod = helper.lastLastMod(info.hash);
+						} else {
 							info.lastMod = getAutoLastMod('./resource/' + info.path);
-						}
+            }
 					} else {
 						info.lastMod = new Date(Date.parse(metaContent)).toISOString()
 					}
