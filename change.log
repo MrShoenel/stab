@@ -1,3 +1,8 @@
+* ([`5836402`](https://github.com/MrShoenel/stab/commit/5836402acd7b8ff62e67da01708b7bca7b774c0f)) Merge branch 'fix/auto-lastmod' into develop
+* ([`2c83533`](https://github.com/MrShoenel/stab/commit/2c835335ed0371dc06b0b635460b6b7e4dfe4b76)) Retrieve and reuse existing last-modification timestamps if the hash validates
+* ([`8c94818`](https://github.com/MrShoenel/stab/commit/8c9481883b46fd30ca9c5562cc3dd49f6e6b4c47)) Transformed the last-modified helpers into a helper-object
+* ([`8644e95`](https://github.com/MrShoenel/stab/commit/8644e95c796b15c7f790a94a76ccc67a804c730b)) Accept the last modified meta tag in multiple shapes now
+* **([`9f4abb1`](https://github.com/MrShoenel/stab/commit/9f4abb12d38859acacb5bbfd2c3e43883ded4662)) Latest changelog with all changes for Stab v1.5.6**
 * ([`edd9b08`](https://github.com/MrShoenel/stab/commit/edd9b08962f8dd419502b2d9fe4040dae76e1367)) Updated the package.json to the latest version of Stab
 * ([`b02f249`](https://github.com/MrShoenel/stab/commit/b02f249d7f176c403f7e75e17a7cf8f2226091f0)) Updated the readme with the feature 'Content-Transform'
 * ([`45b2ce1`](https://github.com/MrShoenel/stab/commit/45b2ce13dc1ad1343fc7ba0046a8f01df6ba96aa)) Added a simple ContentTransformer that can process links to other articles with the "stab-ref"-attribute
