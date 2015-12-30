@@ -1,3 +1,11 @@
+* ([`dea9c5e`](https://github.com/MrShoenel/stab/commit/dea9c5e2b7f494d4ea8221aa5efa8952beabe658)) Merge branch 'develop' into 'master' so we can release a new version of Stab
+* **([`9f4abb1`](https://github.com/MrShoenel/stab/commit/9f4abb12d38859acacb5bbfd2c3e43883ded4662)) Latest changelog with all changes for Stab v1.5.6**
+* ([`edd9b08`](https://github.com/MrShoenel/stab/commit/edd9b08962f8dd419502b2d9fe4040dae76e1367)) Updated the package.json to the latest version of Stab
+* ([`b02f249`](https://github.com/MrShoenel/stab/commit/b02f249d7f176c403f7e75e17a7cf8f2226091f0)) Updated the readme with the feature 'Content-Transform'
+* ([`45b2ce1`](https://github.com/MrShoenel/stab/commit/45b2ce13dc1ad1343fc7ba0046a8f01df6ba96aa)) Added a simple ContentTransformer that can process links to other articles with the "stab-ref"-attribute
+* ([`a28342e`](https://github.com/MrShoenel/stab/commit/a28342e0c39e5035a20fad398190caa64131518f)) Changed the config to make the ArticleModule available to the ContentService so it can pick up ContentTransformers
+* ([`59ed556`](https://github.com/MrShoenel/stab/commit/59ed5564bbc065a9175630999e0b479cfffe0bb5)) Made the ContentService pick up ContentTransformers from the Blog.Article-namespace and use them as pre-processors
+* ([`8f91c30`](https://github.com/MrShoenel/stab/commit/8f91c30dbb8a8b3c2f1fa807c0d0455e738b281d)) Added the ContentTransformer interface and a method in the Article to apply such transformers
 * ([`d365959`](https://github.com/MrShoenel/stab/commit/d365959f977875fe6490023071d39161563a8da7)) Merge branch 'develop'
 * ([`1f31688`](https://github.com/MrShoenel/stab/commit/1f31688d290f659661902c49bcbb16be40607438)) Re-added link to my blog due to earlier merge-conflict with readme.md
 * ([`f43f30f`](https://github.com/MrShoenel/stab/commit/f43f30f8cc5816cb215580d9adb15793a4515a32)) Added the minimum scorer certainty to the articleList's directive's injectable parameters
