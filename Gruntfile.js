@@ -368,18 +368,26 @@ module.exports = function(grunt) {
 	grunt.registerTask('create-content', function() {
 		var contentDir = 'content', rxDefault = /^default/i, rxHtml = /\.html?$/i,
 			rxMyDeps = /^mydeps/i, rxTsMap = /\.(?:(ts)|(map))$/i,
-			hashExists = (function() {
+			helper = (function() {
 				var oldJsonArticles = [];
 				try {
 					oldJsonArticles = grunt.file.readJSON(
 						'./resource/' + contentDir + '/content.json').metaArticles;
 				} catch (e) {}
 				
-				return function(hash) {
-					return oldJsonArticles.filter(function(metaArt) {
-						return metaArt.hash === hash;
-					}).length > 0;
-				};
+				return {
+          hashExists: function(hash) {
+            return oldJsonArticles.filter(function(metaArt) {
+              return metaArt.hash === hash;
+            }).length > 0;
+          },
+          
+          lastLastMod: function(hash) {
+            return oldJsonArticles.filter(function(metaArt) {
+              return metaArt.hash === hash;
+            })[0].lastMod;
+          }
+        };
 			})();
 		
 		var getAutoLastMod = function(path) {
