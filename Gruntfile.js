@@ -608,7 +608,8 @@ module.exports = function(grunt) {
 		];
 		
 		if (grunt.option('optimize')) {
-			tasks.splice(tasks.length - 1, 0, 'optimize');
+      tasks.pop();
+      tasks.push('optimize');
 		}
 		
 		return tasks;
