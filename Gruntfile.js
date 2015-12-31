@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/content/',
-					src: ['**/*', '!default*', '!*.md', '!*.jst'],
+					src: ['**/*', '!**/default*', '!**/*.md', '!**/*.jst'],
 					dest: 'public/content/'
 				}]
 			},
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/',
-					src: ['**/*.js', '!bower/**'],
+					src: ['**/*.js', '!bower/**', '!content/**/*.js'],
 					dest: 'public/script/'
 				}]
 			},
@@ -354,7 +354,7 @@ module.exports = function(grunt) {
 			},
 			
 			markdown: {
-				files: ['./**/*.md'],
+				files: ['./readme.md', './resource/**/*.md'],
 				tasks: ['newer:markdown']
 			},
 			
