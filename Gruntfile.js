@@ -26,6 +26,8 @@ module.exports = function(grunt) {
 		 * This task removes files or entire directories.
 		 */
 		clean: {
+      options: { force: true },
+
 			content: ['./public/content/*'],
 			css: ['./public/style/*'],
 			css_libs: ['./public/style/*.min.css'],
