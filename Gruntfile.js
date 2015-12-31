@@ -604,8 +604,7 @@ module.exports = function(grunt) {
 			'clean',
 			'less', 'tslint', 'typescript', 'markdown', 'create-content',
 			'copy',
-			'concat:css',
-			'exec:changelog'
+			'concat:css'
 		];
 		
 		if (grunt.option('optimize')) {
