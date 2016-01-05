@@ -26,6 +26,8 @@ module.exports = function(grunt) {
 		 * This task removes files or entire directories.
 		 */
 		clean: {
+      options: { force: true },
+
 			content: ['./public/content/*'],
 			css: ['./public/style/*'],
 			css_libs: ['./public/style/*.min.css'],
@@ -66,7 +68,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/content/',
-					src: ['**/*', '!default*', '!*.md', '!*.jst'],
+					src: ['**/*', '!**/default*', '!**/*.md', '!**/*.jst'],
 					dest: 'public/content/'
 				}]
 			},
@@ -89,7 +91,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: './resource/',
-					src: ['**/*.js', '!bower/**'],
+					src: ['**/*.js', '!bower/**', '!content/**/*.js'],
 					dest: 'public/script/'
 				}]
 			},
@@ -294,7 +296,7 @@ module.exports = function(grunt) {
 					module: 'amd',
 					target: 'ES5',
 					sourceMap: true,
-					declaration: false // won't create *.d.ts files
+					declaration: !!grunt.option('with-dts') // won't create *.d.ts files
 				}
 			}
 		},
@@ -354,7 +356,7 @@ module.exports = function(grunt) {
 			},
 			
 			markdown: {
-				files: ['./**/*.md'],
+				files: ['./readme.md', './resource/**/*.md'],
 				tasks: ['newer:markdown']
 			},
 			
@@ -604,12 +606,12 @@ module.exports = function(grunt) {
 			'clean',
 			'less', 'tslint', 'typescript', 'markdown', 'create-content',
 			'copy',
-			'concat:css',
-			'exec:changelog'
+			'concat:css'
 		];
 		
 		if (grunt.option('optimize')) {
-			tasks.splice(tasks.length - 1, 0, 'optimize');
+      tasks.pop();
+      tasks.push('optimize');
 		}
 		
 		return tasks;

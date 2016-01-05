@@ -55,6 +55,10 @@ In short that means the following:
 * ***NEW*** in version *1.5.6*:
   * *Content-Transformers* allow arbitrary and dynamic pre-processing of the content of articles. *STAB* comes with one transformer to process ***&lt;a stab-ref="&lt;article-url-name&gt;"&gt; .. &lt;/a&gt;***-links. This is useful if you want to link within articles without having to care for the underlying URL-structure. You may use *MyDeps* to load your custom transformers by just implementing the interface *Common.ContentTransformer* and putting your transformer into the *Blog.Article*-namespace.
 
+## Known Extensions/Plug-Ins
+This is a list of known extensions and plug-ins that have been made for *Stab*:
+* [***Stab-Github-Comments***](https://github.com/MrShoenel/stab-gh-comments) is an additional module which lets you use and attach Github-based Issue-comments to any of your articles.
+	* Uses [***Stab-Github-Comments-Authorizer***](https://github.com/MrShoenel/stab-gh-comments-authorizer) to authorize users so it can post on their behalf.
 
 
 ## How-to: Create your own blog with stab
