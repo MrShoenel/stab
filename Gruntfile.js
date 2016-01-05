@@ -296,7 +296,7 @@ module.exports = function(grunt) {
 					module: 'amd',
 					target: 'ES5',
 					sourceMap: true,
-					declaration: false // won't create *.d.ts files
+					declaration: !!grunt.option('with-dts') // won't create *.d.ts files
 				}
 			}
 		},
