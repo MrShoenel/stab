@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 * ([`dea9c5e`](https://github.com/MrShoenel/stab/commit/dea9c5e2b7f494d4ea8221aa5efa8952beabe658)) Merge branch 'develop' into 'master' so we can release a new version of Stab
+=======
+* ([`f8dc307`](https://github.com/MrShoenel/stab/commit/f8dc307a6f7d6c7d656c1bbedd153e617c9a6a18)) Update readme and added an 'Extensions'-section with stab-gh-comments
+* ([`e3036cd`](https://github.com/MrShoenel/stab/commit/e3036cdbdd10ca25200572e13a5987a43838d8d1)) Allow grunt-typescript task to generate declarations
+* ([`61b8513`](https://github.com/MrShoenel/stab/commit/61b85139514d96a8ad41a7c8610b1154eaaac52a)) Made the grunt-task for cleaning to work with the --force flag
+* ([`980ba77`](https://github.com/MrShoenel/stab/commit/980ba773e5d2f74ad2d4acd9c3493d590e865bb5)) Fixed a problem with the 'optimize'-taksk
+* ([`b3f2093`](https://github.com/MrShoenel/stab/commit/b3f209375dc8e6f27bd903838675f4285dd9d408)) Removed the 'exec:changelog' task from the 'default'-task for Stab
+* ([`d9cd9a9`](https://github.com/MrShoenel/stab/commit/d9cd9a942e5b4567a9318f07f402bd1769a0d1d4)) Changes to Gruntfile to copy- and watch-tasks for cleaner publishing and to avoid watch-conflicts
+* ([`4d65e01`](https://github.com/MrShoenel/stab/commit/4d65e01488953485ec4e6aa8687debfe122d0ef0)) Merge branch 'develop' of https://github.com/MrShoenel/stab into develop
+* **([`efe3c1a`](https://github.com/MrShoenel/stab/commit/efe3c1a50e949e00ba34320d8490c14f1f10c7a6)) Upgrade Stab to v1.5.7**
+* **([`c69e306`](https://github.com/MrShoenel/stab/commit/c69e30609e9dc0ac09c5aad2499074d4334c6129)) Upgrade Stab to v1.4.6**
+* ([`5836402`](https://github.com/MrShoenel/stab/commit/5836402acd7b8ff62e67da01708b7bca7b774c0f)) Merge branch 'fix/auto-lastmod' into develop
+* ([`2c83533`](https://github.com/MrShoenel/stab/commit/2c835335ed0371dc06b0b635460b6b7e4dfe4b76)) Retrieve and reuse existing last-modification timestamps if the hash validates
+* ([`8c94818`](https://github.com/MrShoenel/stab/commit/8c9481883b46fd30ca9c5562cc3dd49f6e6b4c47)) Transformed the last-modified helpers into a helper-object
+* ([`8644e95`](https://github.com/MrShoenel/stab/commit/8644e95c796b15c7f790a94a76ccc67a804c730b)) Accept the last modified meta tag in multiple shapes now
+>>>>>>> develop
 * **([`9f4abb1`](https://github.com/MrShoenel/stab/commit/9f4abb12d38859acacb5bbfd2c3e43883ded4662)) Latest changelog with all changes for Stab v1.5.6**
 * ([`edd9b08`](https://github.com/MrShoenel/stab/commit/edd9b08962f8dd419502b2d9fe4040dae76e1367)) Updated the package.json to the latest version of Stab
 * ([`b02f249`](https://github.com/MrShoenel/stab/commit/b02f249d7f176c403f7e75e17a7cf8f2226091f0)) Updated the readme with the feature 'Content-Transform'

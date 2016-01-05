@@ -2,7 +2,7 @@
 
 ***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
 
-The current version is ***1.5.7***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
+The current version is ***1.5.8***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
 
 
 
