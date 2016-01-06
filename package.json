@@ -1,6 +1,6 @@
 {
   "name": "stab",
-  "version": "1.5.7",
+  "version": "1.6.8",
   "description": "stab is the static-tiny-angular-blog",
   "main": "index.html",
   "scripts": {
@@ -13,7 +13,11 @@
   "keywords": [
     "blog", "angular", "static", "github pages"
   ],
-  "author": "Sebastian Hönel <development@hoenel.net>",
+  "author": {
+		"name": "Sebastian Hönel",
+		"email": "development@hoenel.net",
+		"url": "https://github.com/MrShoenel/stab"
+	},
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MrShoenel/stab/issues"

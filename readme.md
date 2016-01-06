@@ -2,7 +2,7 @@
 
 ***stab*** stands for **S**tatic **T**idy **A**ngular **B**log.
 
-The current version is ***1.5.7***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
+The current version is ***1.6.8***. Please refer to the [Changelog with milestones](https://github.com/MrShoenel/stab/wiki/changelog) for details. If you want to see *stab* in action, feel free to visit my blog [https://mrshoenel.github.io/](https://mrshoenel.github.io/)!
 
 
 
@@ -41,11 +41,13 @@ In short that means the following:
 		* [#!**/**](#)
 	* ***Read*** to display an article with all its meta-information being applied to the document under the hood.
 		* [#!**/read**/**&lt;article-url-name&gt;**](#)
-	* ***List*** to show arbitrary lists of articles. This state may also use meta-data.
+	* ***List*** to show arbitrary lists of articles. Read below about *strategies* to list your articles to way you want. This state may also use meta-data.
 		* [#!**/list**/**&lt;list-type&gt;**&#91;/**&lt;page-index&gt;**&#93;](#)
 	* ***Search*** to search through all the details of all meta-articles.
 		* [#!**/search**&#91;/**&lt;page-index&gt;**&#93;?**q=&lt;query&gt;**](#)
 * All kinds of lists of articles use a configurable ***pagination***, even the search.
+* Stab comes with three **List-strategies** (*ListAllStrategy*, *ByYearStrategy* (allows for [#!/list/2016](#)) and *SimpleSearchStrategy*)
+	* Easily **add your own** strategies simply by extending the class *Common.AListStrategy* and putting your implementation into the *Blog.ArticleList*-namespace. Then you can use your strategy with the *&lt;article-list/&gt;*-directive by specifying its attribute *list-type* (it also supports the attributes *inject*, *sort-reverse* and *page-index*). Load your strategies with *MyDeps* (see below).
 * Stab supports ***markdown*** through a separate markdown-template (which you may extend of course). Write your articles in Html or markdown.
 	* If using Html, you may as well use ***angular-flavored*** Html with directives, models etc.
 * ***NEW*** in version *1.1.0*:
@@ -55,6 +57,10 @@ In short that means the following:
 * ***NEW*** in version *1.5.6*:
   * *Content-Transformers* allow arbitrary and dynamic pre-processing of the content of articles. *STAB* comes with one transformer to process ***&lt;a stab-ref="&lt;article-url-name&gt;"&gt; .. &lt;/a&gt;***-links. This is useful if you want to link within articles without having to care for the underlying URL-structure. You may use *MyDeps* to load your custom transformers by just implementing the interface *Common.ContentTransformer* and putting your transformer into the *Blog.Article*-namespace.
 
+## Known Extensions/Plug-Ins
+This is a list of known extensions and plug-ins that have been made for *Stab*:
+* [***Stab-Github-Comments***](https://github.com/MrShoenel/stab-gh-comments) is an additional module which lets you use and attach Github-based Issue-comments to any of your articles.
+	* Uses [***Stab-Github-Comments-Authorizer***](https://github.com/MrShoenel/stab-gh-comments-authorizer) to authorize users so it can post on their behalf.
 
 
 ## How-to: Create your own blog with stab
@@ -83,7 +89,7 @@ There is a bunch of useful tasks to aid the development or creation of content w
 |task name |	description	|	options	|	option desc	| comments |
 |---	|---	|---	|---	|---	|
 | ___default___	| The default task is run if you do not specify any task explicitly. It runs the complete build process: Clean, transform, process, build, copy. Everything. | ___--optimize___ | General option that uglifies JavaScript and minifies CSS. You may use this option for all build-related tasks. | You may use this task in case of doubt. Usually you want to use a more straightforward task though. |
-| ___make-content___ | Does what it says: It builds all your articles from the content-directory. Creates the *content.json* which is picked up by the frontend. | - | - | - |
+| ___make-content___ | Does what it says: It builds all your articles from the content-directory. Copies your *MyDeps*-dependencies. Creates the *content.json* which is picked up by the frontend. | - | - | - |
 | ___watch-content___ | Watches for changes in the content-directory (add/remove/change etc.) and re-builds your content whenever necessary. Also, it comes with an ***http-server*** in the background that serves ***stab*** from port 80 so you can immediately review your content. | ___--port=&lt;int&gt;___ | Override the default port (80) where you can access the current build. | This is the most convenient task for when authoring content. |
 | ___watch-all___ | Used during development. Employs concurrent watches on all resources and rebuilds them if necessary. Also copies over new files if required. Also watches content. | ___--port=&lt;int&gt;___ | *same as above* |The watch task is ideal during development as it keeps track of files and takes necessary actions if they change.|
 | ___exec:changelog___ | Creates a nice, markdown-flavored changelog from all commits. | - | - | Is also run as part of the default-task. |
