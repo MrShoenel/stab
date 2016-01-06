@@ -41,6 +41,7 @@
     "less-plugin-autoprefix": "^1.5.1",
     "matchdep": "^1.0.0",
     "parallelshell": "^2.0.0",
+		"stab-content-processor": "git://github.com/MrShoenel/stab-content-processor.git#master",
     "striptags": "^2.0.4",
     "tsd": "^0.6.5",
     "tslint": "^2.5.1"
