@@ -140,7 +140,7 @@ module Blog {
 						parent: 'main',
 						url: '/read/{articleUrlName:.*}',
 						controller: 'ArticleController',
-						controllerAs: 'vm',
+						controllerAs: 'articleVm',
 						templateProvider: ['$templateFactory', ($templateFactory: Common.$TemplateFactory) => {
 							return $templateFactory.fromUrl('./script/app/article/article.template.html');
 						}],
