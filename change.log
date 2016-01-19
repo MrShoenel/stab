@@ -1,3 +1,7 @@
+* ([`af5d78d`](https://github.com/MrShoenel/stab/commit/af5d78da409f9555637a095fc31d750d712a6f38)) Merge branch 'develop' into 'master' after upgrade to new content-creation-system
+* **([`3fb3036`](https://github.com/MrShoenel/stab/commit/3fb30360f85cc28fa7d4a2752bce2b7830caf31f)) Update Stab to v1.6.8 after externalizing content-creation tasks**
+* ([`62ef8db`](https://github.com/MrShoenel/stab/commit/62ef8db56434ba626e4bf90f6f4b8be19c216834)) Add git-dependency for stab-content-processor to package.json
+* ([`99cc3ec`](https://github.com/MrShoenel/stab/commit/99cc3ecf302343b43a400dfeb08e4fe340f28c96)) Remove content-processing tasks from Gruntfile and externalize them to new module stab-content-processor
 * ([`0806180`](https://github.com/MrShoenel/stab/commit/0806180794c7a8b7d8b65bbda1962e114b7441e9)) Merge branch 'develop'
 * ([`3ee9abf`](https://github.com/MrShoenel/stab/commit/3ee9abf57cc381e398bde948daa0b99d2ea6fec2)) Add feature description of list-strategies to readme
 * ([`18e471a`](https://github.com/MrShoenel/stab/commit/18e471ae39273bf9bafbde798b85d95068dffb06)) Update author in package.json to extended format
