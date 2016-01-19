@@ -56,11 +56,14 @@ In short that means the following:
 	* *MyDeps* which is short for *My Dependencies*. This feature allows adding custom scripts, styles or any other files which can be loaded by **ocLazyLoad**. This is especially useful if you globally override styles or add features such as directives or filters to the *stab*. This also opens up *stab* for any kind of 3rd-party extensions!
 * ***NEW*** in version *1.5.6*:
   * *Content-Transformers* allow arbitrary and dynamic pre-processing of the content of articles. *STAB* comes with one transformer to process ***&lt;a stab-ref="&lt;article-url-name&gt;"&gt; .. &lt;/a&gt;***-links. This is useful if you want to link within articles without having to care for the underlying URL-structure. You may use *MyDeps* to load your custom transformers by just implementing the interface *Common.ContentTransformer* and putting your transformer into the *Blog.Article*-namespace.
+* ***NEW*** in version *1.7.8*:
+	* Allow new search-strategies: Previously it was only possible to extend the existing SimpleSearch-strategy with custom scorer-functions, now we allow to implement own strategies that only need to contain the word *search* so they are conceived as search-strategies!
 
 ## Known Extensions/Plug-Ins
 This is a list of known extensions and plug-ins that have been made for *Stab*:
 * [***Stab-Github-Comments***](https://github.com/MrShoenel/stab-gh-comments) is an additional module which lets you use and attach Github-based Issue-comments to any of your articles.
 	* Uses [***Stab-Github-Comments-Authorizer***](https://github.com/MrShoenel/stab-gh-comments-authorizer) to authorize users so it can post on their behalf.
+* [***Stab-Search-Lunr***](https://github.com/MrShoenel/stab-search-lunr) is a new search-strategy that allows ***fulltext***-searches within your articles! Requires Stab v1.7.x.
 
 
 ## How-to: Create your own blog with stab
