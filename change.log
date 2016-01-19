@@ -1,3 +1,19 @@
+* ([`0396465`](https://github.com/MrShoenel/stab/commit/03964656c1ee5d5c3042ff339c107e79dd305567)) Change config, controller and template of Article to work directly with ContentService
+* **([`3fb3036`](https://github.com/MrShoenel/stab/commit/3fb30360f85cc28fa7d4a2752bce2b7830caf31f)) Update Stab to v1.6.8 after externalizing content-creation tasks**
+* ([`62ef8db`](https://github.com/MrShoenel/stab/commit/62ef8db56434ba626e4bf90f6f4b8be19c216834)) Add git-dependency for stab-content-processor to package.json
+* ([`99cc3ec`](https://github.com/MrShoenel/stab/commit/99cc3ecf302343b43a400dfeb08e4fe340f28c96)) Remove content-processing tasks from Gruntfile and externalize them to new module stab-content-processor
+* ([`3ee9abf`](https://github.com/MrShoenel/stab/commit/3ee9abf57cc381e398bde948daa0b99d2ea6fec2)) Add feature description of list-strategies to readme
+* ([`18e471a`](https://github.com/MrShoenel/stab/commit/18e471ae39273bf9bafbde798b85d95068dffb06)) Update author in package.json to extended format
+* **([`5891d62`](https://github.com/MrShoenel/stab/commit/5891d627a4450b65de24154be630a66676597bf8)) Upgrade Stab to v1.5.8 after various Grunt-based fixes**
+* ([`f8dc307`](https://github.com/MrShoenel/stab/commit/f8dc307a6f7d6c7d656c1bbedd153e617c9a6a18)) Update readme and added an 'Extensions'-section with stab-gh-comments
+* ([`e3036cd`](https://github.com/MrShoenel/stab/commit/e3036cdbdd10ca25200572e13a5987a43838d8d1)) Allow grunt-typescript task to generate declarations
+* ([`61b8513`](https://github.com/MrShoenel/stab/commit/61b85139514d96a8ad41a7c8610b1154eaaac52a)) Made the grunt-task for cleaning to work with the --force flag
+* ([`980ba77`](https://github.com/MrShoenel/stab/commit/980ba773e5d2f74ad2d4acd9c3493d590e865bb5)) Fixed a problem with the 'optimize'-taksk
+* ([`b3f2093`](https://github.com/MrShoenel/stab/commit/b3f209375dc8e6f27bd903838675f4285dd9d408)) Removed the 'exec:changelog' task from the 'default'-task for Stab
+* ([`d9cd9a9`](https://github.com/MrShoenel/stab/commit/d9cd9a942e5b4567a9318f07f402bd1769a0d1d4)) Changes to Gruntfile to copy- and watch-tasks for cleaner publishing and to avoid watch-conflicts
+* ([`4d65e01`](https://github.com/MrShoenel/stab/commit/4d65e01488953485ec4e6aa8687debfe122d0ef0)) Merge branch 'develop' of https://github.com/MrShoenel/stab into develop
+* **([`efe3c1a`](https://github.com/MrShoenel/stab/commit/efe3c1a50e949e00ba34320d8490c14f1f10c7a6)) Upgrade Stab to v1.5.7**
+* **([`c69e306`](https://github.com/MrShoenel/stab/commit/c69e30609e9dc0ac09c5aad2499074d4334c6129)) Upgrade Stab to v1.4.6**
 * ([`5836402`](https://github.com/MrShoenel/stab/commit/5836402acd7b8ff62e67da01708b7bca7b774c0f)) Merge branch 'fix/auto-lastmod' into develop
 * ([`2c83533`](https://github.com/MrShoenel/stab/commit/2c835335ed0371dc06b0b635460b6b7e4dfe4b76)) Retrieve and reuse existing last-modification timestamps if the hash validates
 * ([`8c94818`](https://github.com/MrShoenel/stab/commit/8c9481883b46fd30ca9c5562cc3dd49f6e6b4c47)) Transformed the last-modified helpers into a helper-object
