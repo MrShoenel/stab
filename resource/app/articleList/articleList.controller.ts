@@ -31,7 +31,7 @@ module Blog.ArticleList {
 		public constructor(private ContentService: Blog.Service.ContentService, private $stateParams: angular.ui.IStateParamsService, private $scope: angular.IScope, private $location: angular.ILocationService, private CONFIG: Common.Constants) {
 			
 			this.listType = $scope['listType'] || $stateParams['listType'];
-			this.isSearchList = this.listType === 'search';
+			this.isSearchList = this.listType.indexOf('search') !== 1;
 			this.sortReverse = $scope['sortReverse'] === 'true';
 			this.pageIndex = $scope['sortReverse'] ?
 				parseInt($scope['sortReverse']) : <number>$stateParams['pageIdx'] || 0;
